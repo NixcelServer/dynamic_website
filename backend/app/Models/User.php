@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected $table = 'mst_tbl_user';
+    protected $primaryKey = 'tbl_user_id';
+    public $timestamps = false;
+
 }

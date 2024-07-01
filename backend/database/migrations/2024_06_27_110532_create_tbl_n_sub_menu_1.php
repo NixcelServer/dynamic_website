@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tbl_nav_menu_id'); // Foreign key to tbl_nav_menu table
             $table->string('sub_menu_1_name', 255); // Sub menu 1 name
             $table->string('sub_menu_1_icon')->nullable(); // Sub menu 1 icon (nullable)
-            $table->text('sub_menu_1_desc')->nullable(); // Sub menu 1 description (nullable)
+            $table->binary('sub_menu_1_desc')->nullable(); // Sub menu 1 description (nullable)
             $table->string('show_status', 45); // Show status
             $table->integer('sequence_no')->nullable(); // Sequence number
             $table->date('add_date'); // Date added

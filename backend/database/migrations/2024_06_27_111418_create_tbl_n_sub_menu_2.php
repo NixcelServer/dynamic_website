@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('tbl_n_sub_menu_2_id'); // Primary key using big integer, auto-increment
             $table->unsignedBigInteger('tbl_n_sub_menu_1_id'); // Foreign key to tbl_n_sub_menu_1 table
             $table->string('sub_menu_2_name', 255); // Sub menu 2 name
-            $table->text('sub_menu_2_desc')->nullable(); // Sub menu 2 description (nullable)
+            $table->binary('sub_menu_2_desc')->nullable(); // Sub menu 2 description (nullable)
             $table->string('show_status', 45); // Show status
             $table->integer('sequence_no')->nullable(); // Sequence number
             $table->date('add_date'); // Date added
