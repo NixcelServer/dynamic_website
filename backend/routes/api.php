@@ -44,3 +44,7 @@ Route::delete('/sub-menu-1-delete/{id}',[SubMenu1Controller::class,'deleteSubMen
 //sub menu 2
 
 Route::post('/new-sub-menu-2',[SubMenu2Controller::class,'createSubMenu2']);
+
+Route::post('/update-sub-menu-2',[SubMenu2Controller::class,'updateSubMenu2']);
+
+Route::delete('/sub-menu-2-delete/{id}',[SubMenu2Controller::class,'deleteSubMenu2']);
