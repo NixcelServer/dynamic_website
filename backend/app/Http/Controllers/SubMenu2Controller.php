@@ -11,6 +11,37 @@ use Illuminate\Support\Facades\Storage;
 class SubMenu2Controller extends Controller
 {
     //
+
+    public function getSubMenu2($id)
+    {
+        // Decrypt the navigation menu ID using EncDecHelper (assuming it's a custom helper for encryption/decryption)
+        $decryptedId = EncDecHelper::encDecId($id, 'decrypt');
+        
+        // Retrieve submenus from the SubMenu1 model where the tbl_nav_menu_id matches the decrypted ID and flag is 'show'
+        $submenus = SubMenu2::where('tbl_n_sub_menu_1_id', $decryptedId)
+                            ->where('flag', 'show')
+                            ->get();
+        
+        // If no submenus are found, $submenus will be an empty collection ([])
+        
+        // Iterate through each submenu
+        foreach($submenus as $submenu)
+        {
+            // Encrypt the submenu ID and set it to encSubMenu1Id
+            $submenu->encSubMenu1Id = $id;
+            
+            // Set encNavMenuId to the original ID passed to the function
+            $submenu->encSubMenu2Id = EncDecHelper::encDecId($submenu->tbl_n_sub_menu_2_id, 'encrypt');
+            
+            // Unset tbl_nav_menu_id and tbl_sub_menu_1_id from the response
+            unset($submenu->tbl_n_sub_menu_1_id, $submenu->tbl_n_sub_menu_2_id);
+        }
+        
+        // Return the submenus as a JSON response with HTTP status code 200
+        return response()->json($submenus, 200);
+    }
+
+
     public function createSubMenu2(Request $request)
     {
         $subMenu1Id = EncDecHelper::encDecID($request->encSubMenu1Id,'decrypt');

@@ -22,11 +22,14 @@ return new class extends Migration
             $table->string('house_no', 100);
             $table->string('area', 100);
             $table->string('locality', 100);
+            $table->string('pincode', 6);
             $table->date('add_date');
             $table->time('add_time');
             $table->date('updated_date')->nullable(); // Nullable if updates are not mandatory
             $table->time('updated_time')->nullable(); // Nullable if updates are not mandatory
-            $table->string('flag', 45);
+            $table->date('deleted_date')->nullable(); // Nullable if updates are not mandatory
+            $table->time('deleted_time')->nullable();
+            $table->string('flag', 7)->default('show');
             
 
             // Foreign key constraint

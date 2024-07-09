@@ -16,16 +16,16 @@ return new class extends Migration
             $table->string('c_name', 255);
             $table->string('c_email_id', 100);
             $table->string('c_mobile_no', 15);
-            $table->string('c_alt_mobile_no', 15);
-            $table->string('c_landline_no', 15);
-            $table->string('c_alt_landline_no', 15);
+            $table->string('c_alt_mobile_no', 15)->nullable();
+            $table->string('c_landline_no', 15)->nullable();
+            $table->string('c_alt_landline_no', 15)->nullable();
             $table->string('c_website', 100);
             $table->string('c_logo_path')->nullable(); // Nullable to allow empty logo path
             $table->date('add_date');
             $table->time('add_time');
             $table->date('updated_date')->nullable(); // Nullable if updates are not mandatory
             $table->time('updated_time')->nullable(); // Nullable if updates are not mandatory
-            $table->string('flag', 45);
+            $table->string('flag', 7)->default('show');
            
         });
     }

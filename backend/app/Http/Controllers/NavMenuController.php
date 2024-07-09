@@ -12,15 +12,25 @@ use Illuminate\Support\Facades\Storage;
 
 class NavMenuController extends Controller
 {
+    public function getNavMenu()
+    {
+        $navmenus = NavbarMenu::where('flag','show')->get();
+        foreach($navmenus as $navmenu)
+        {
+            $navmenu->encNavMenuId = EncDecHelper::encDecId($navmenu->tbl_nav_menu_id,'encrypt');
+            unset($navmenu->tbl_nav_menu_id);
+        }
+        return response()->json($navmenus,200);
+    }
     public function createNavMenu(Request $request)
     {
-        // Validate the request
-        // $request->validate([
-        //     'navbarName' => 'required|string|max:255',
-        //     'navMenuDesc' => 'required|string', // Assuming CKEditor is used to input HTML content
-        //     'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'bgImg' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        // ]);
+         // Validate the request
+    $request->validate([
+        'navbarName' => 'required|string|max:255',
+        'navMenuDesc' => 'required|string', // Assuming CKEditor is used to input HTML content
+        'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'bgImg' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
         // Create a new NavbarMenu instance
         $navMenu = new NavbarMenu;
@@ -42,14 +52,14 @@ class NavMenuController extends Controller
         // Handle file upload for icon
         if ($request->hasFile('icon')) {
             $icon = $request->file('icon');
-            $iconPath = $icon->storeAs('uploads', $icon->getClientOriginalName(), 'public');
+            $iconPath = $icon->storeAs('Nav Menu', $icon->getClientOriginalName(), 'public');
             $navMenu->n_menu_icon = $iconPath;
         }
 
         // Handle file upload for background image (bgImg)
         if ($request->hasFile('bgImg')) {
             $bgImg = $request->file('bgImg');
-            $bgImgPath = $bgImg->storeAs('uploads', $bgImg->getClientOriginalName(), 'public');
+            $bgImgPath = $bgImg->storeAs('Nav Menu', $bgImg->getClientOriginalName(), 'public');
             $navMenu->n_menu_bg_img = $bgImgPath;
         }
 
@@ -83,7 +93,7 @@ class NavMenuController extends Controller
         //     Storage::disk('public')->delete($navMenu->n_menu_icon);
         // }
         $icon = $request->file('icon');
-        $iconPath = $icon->storeAs('uploads', $icon->getClientOriginalName(), 'public');
+        $iconPath = $icon->storeAs('Nav Menu', $icon->getClientOriginalName(), 'public');
         $navMenu->n_menu_icon = $iconPath;
     }
 
@@ -95,7 +105,7 @@ class NavMenuController extends Controller
         //     Storage::disk('public')->delete($navMenu->n_menu_bg_img);
         // }
         $bgImg = $request->file('bgImg');
-        $bgImgPath = $bgImg->storeAs('uploads', $bgImg->getClientOriginalName(), 'public');
+        $bgImgPath = $bgImg->storeAs('Nav Menu', $bgImg->getClientOriginalName(), 'public');
         $navMenu->n_menu_bg_img = $bgImgPath;
     }
 

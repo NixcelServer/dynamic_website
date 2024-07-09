@@ -18,13 +18,13 @@ return new class extends Migration
             $table->text('facebook_url')->nullable(); // Nullable to allow empty URLs
             $table->text('google_url')->nullable(); // Nullable to allow empty URLs
             $table->text('linkedin_url')->nullable(); // Nullable to allow empty URLs
-            $table->date('add_date');
-            $table->time('add_time');
+            $table->date('add_date')->nullable();
+            $table->time('add_time')->nullable();
             $table->date('updated_date')->nullable(); // Nullable if updates are not mandatory
             $table->time('updated_time')->nullable(); // Nullable if updates are not mandatory
             $table->date('deleted_date')->nullable(); // Date deleted, nullable
             $table->time('deleted_time')->nullable(); // Time deleted, nullable
-            $table->string('flag', 45);
+            $table->string('flag', 7)->default('show');
            
             // Foreign key constraint
             $table->foreign('tbl_cmp_dtls_id')->references('tbl_cmp_dtls_id')->on('mst_tbl_cmp_dtls')->onDelete('cascade');

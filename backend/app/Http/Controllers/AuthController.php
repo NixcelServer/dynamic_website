@@ -14,11 +14,11 @@ class AuthController extends Controller
     //
     public function login(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
-        ]);
+        // // Validate the request
+        // $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required|string|min:6',
+        // ]);
 
         //enc the pass recived from the request
         $encPass = EncDecHelper::encryptData($request->password);

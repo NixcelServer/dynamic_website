@@ -12,6 +12,36 @@ use Illuminate\Support\Facades\Storage;
 class SubMenu1Controller extends Controller
 {
     //
+
+    public function getSubMenu1($id)
+    {
+        // Decrypt the navigation menu ID using EncDecHelper (assuming it's a custom helper for encryption/decryption)
+        $decryptedId = EncDecHelper::encDecId($id, 'decrypt');
+        
+        // Retrieve submenus from the SubMenu1 model where the tbl_nav_menu_id matches the decrypted ID and flag is 'show'
+        $submenus = SubMenu1::where('tbl_nav_menu_id', $decryptedId)
+                            ->where('flag', 'show')
+                            ->get();
+        
+        // If no submenus are found, $submenus will be an empty collection ([])
+        
+        // Iterate through each submenu
+        foreach($submenus as $submenu)
+        {
+            // Encrypt the submenu ID and set it to encSubMenu1Id
+            $submenu->encSubMenu1Id = EncDecHelper::encDecId($submenu->tbl_n_sub_menu_1_id, 'encrypt');
+            
+            // Set encNavMenuId to the original ID passed to the function
+            $submenu->encNavMenuId = $id;
+            
+            // Unset tbl_nav_menu_id and tbl_sub_menu_1_id from the response
+            unset($submenu->tbl_nav_menu_id, $submenu->tbl_n_sub_menu_1_id);
+        }
+        
+        // Return the submenus as a JSON response with HTTP status code 200
+        return response()->json($submenus, 200);
+    }
+    
     public function createSubMenu1(Request $request)
     {
         $navMenuId = EncDecHelper::encDecID($request->encNavMenuId,'decrypt');
@@ -24,7 +54,7 @@ class SubMenu1Controller extends Controller
         // Handle file upload for icon
         if ($request->hasFile('icon')) {
             $icon = $request->file('icon');
-            $iconPath = $icon->storeAs('uploads', $icon->getClientOriginalName(), 'public');
+            $iconPath = $icon->storeAs('Sub Menu 1', $icon->getClientOriginalName(), 'public');
             $subMenu1->sub_menu_1_icon = $iconPath;
         }
 
@@ -52,7 +82,7 @@ class SubMenu1Controller extends Controller
         // Handle file upload for icon
         if ($request->hasFile('icon')) {
             $icon = $request->file('icon');
-            $iconPath = $icon->storeAs('uploads', $icon->getClientOriginalName(), 'public');
+            $iconPath = $icon->storeAs('Sub Menu 1', $icon->getClientOriginalName(), 'public');
             $subMenu1->sub_menu_1_icon = $iconPath;
         }
 

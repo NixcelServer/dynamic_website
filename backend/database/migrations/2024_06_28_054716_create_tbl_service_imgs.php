@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tbl_service_imgs', function (Blueprint $table) {
             $table->id('tbl_service_img_id');
             $table->unsignedBigInteger('tbl_service_id');
-            $table->string('prod_img_path');
+            $table->string('service_img_path');
             $table->date('add_date')->nullable();
             $table->time('add_time')->nullable();
             $table->date('deleted_date')->nullable();

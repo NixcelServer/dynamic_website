@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('tbl_prods', function (Blueprint $table) {
             $table->id('tbl_prod_id');
             $table->unsignedBigInteger('tbl_nav_menu_id');
-            $table->unsignedBigInteger('tbl_n_sub_menu_1_id');
-            $table->unsignedBigInteger('tbl_n_sub_menu_2_id');
+            $table->unsignedBigInteger('tbl_n_sub_menu_1_id')->nullable();
+            $table->unsignedBigInteger('tbl_n_sub_menu_2_id')->nullable();
             $table->string('prod_name', 100);
             $table->binary('prod_desc');
             $table->string('show_status');
