@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('tbl_hp_slider_sh', function (Blueprint $table) {
             $table->id('tbl_hp_slider_sh_id'); // Primary key using big integer, auto-increment
             $table->unsignedBigInteger('tbl_hp_slider_img_id'); // Foreign key to tbl_hp_slider_imgs table
-            $table->string('sub_heading', 250); // Sub heading for the slider
-            $table->date('add_date'); // Date added
-            $table->time('add_time'); // Time added
+            $table->string('sub_heading', 250)->nullable(); // Sub heading for the slider
+            $table->date('add_date')->nullable(); // Date added
+            $table->time('add_time')->nullable(); // Time added
             $table->date('updated_date')->nullable(); // Date updated, nullable
             $table->time('updated_time')->nullable(); // Time updated, nullable
             $table->date('deleted_date')->nullable(); // Date updated, nullable

@@ -15,6 +15,6 @@ class SubMenu2 extends Model
     // Define the belongsTo relationship
     public function subMenu1()
     {
-        return $this->belongsTo(SubMenu1::class, 'tbl_sub_menu_1_id', 'tbl_sub_menu_1_id');
+        return $this->belongsTo(SubMenu1::class, 'tbl_n_sub_menu_1_id', 'tbl_n_sub_menu_1_id');
     }
 }

@@ -337,32 +337,34 @@ function SubMenu1() {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="mr-2">Display this menu on website:</label>
-                  <div className="form-check form-check-inline">
-                    <input
-                      type="radio"
-                      id="displayYes"
-                      name="displayMenu"
-                      className="form-check-input"
-                      value="yes"
-                      checked={display === 'yes'}
-                      onChange={(e) => setDisplay(e.target.value)}
-                      required
-                    />
-                    <label htmlFor="displayYes" className="form-check-label mr-3">Yes</label>
-                    <input
-                      type="radio"
-                      id="displayNo"
-                      name="displayMenu"
-                      className="form-check-input"
-                      value="no"
-                      checked={display === 'no'}
-                      onChange={(e) => setDisplay(e.target.value)}
-                      required
-                    />
-                    <label htmlFor="displayNo" className="form-check-label">No</label>
-                  </div>
-                </div>
+                                            <label className="mr-2">Display this menu on website:</label>
+                                            <div className="form-check form-check-inline">
+                                                <input
+                                                    type="radio"
+                                                    id="displayYes"
+                                                    name="displayMenu"
+                                                    className="form-check-input"
+                                                    value="yes"
+                                                    checked={display === 'yes'}
+                                                    onChange={(e) => setDisplay(e.target.value)}
+                                                    required
+                                                />
+                                                <label htmlFor="displayYes" className="form-check-label mr-3">Yes</label>
+                                            </div>
+                                            <div className="form-check form-check-inline">
+                                                <input
+                                                    type="radio"
+                                                    id="displayNo"
+                                                    name="displayMenu"
+                                                    className="form-check-input"
+                                                    value="no"
+                                                    checked={display === 'no'}
+                                                    onChange={(e) => setDisplay(e.target.value)}
+                                                    required
+                                                />
+                                                <label htmlFor="displayNo" className="form-check-label">No</label>
+                                            </div>
+                                        </div>
                 <div className="modal-footer justify-content-between">
                   <button type="button" className="btn btn-default" onClick={() => setShowAddModal(false)} data-dismiss="modal">
                     Close

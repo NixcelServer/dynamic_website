@@ -7,6 +7,7 @@ const initalState = {
     navmenu: [],
     submenu1:[],
     submenu2:[],
+    allNavMenu:[]
     
 }
  
@@ -22,6 +23,9 @@ export const navbarReducer = (state = initalState, { type,payload }) => {
 
           case types.GET_SUBMENU_2:
             return { ...state, submenu2: payload };  
+
+            case types.GET_ALL_NAV_MENU:
+          return { ...state, allNavMenu: payload };
         
 
     default: {

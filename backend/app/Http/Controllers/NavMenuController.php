@@ -65,6 +65,7 @@ class NavMenuController extends Controller
 
         $navMenu->show_status = $request->display;
         $navMenu->sequence_no = $request->sequenceNo;
+        $navMenu->link = $request->link;
         $navMenu->add_date = Date::now()->toDateString();
         $navMenu->add_time = Date::now()->toTimeString();
         $navMenu->flag = 'show';
@@ -111,6 +112,7 @@ class NavMenuController extends Controller
 
         $navMenu->show_status = $request->display;
         $navMenu->sequence_no = $request->sequenceNo;
+        $navMenu->link = $request->link;
         $navMenu->updated_date = Date::now()->toDateString();
         $navMenu->updated_time = Date::now()->toTimeString();
         $navMenu->flag = 'show';
@@ -149,4 +151,25 @@ class NavMenuController extends Controller
 
         return response()->json(['message' => 'Navbar menu deleted successfully'], 200);
     }
+
+    public function getAllNavMenu()
+{
+    // Fetch all nav menus where flag is 'show' and show_status is 'yes'
+    // and eager load the subMenus1 and subMenus2 relationships where show_status is 'yes' and flag is 'show'
+    $navMenus = NavbarMenu::where('flag', 'show')
+        ->where('show_status', 'yes')
+        ->with(['subMenus' => function($query) {
+            $query->where('flag', 'show')
+                ->where('show_status', 'yes')
+                ->with(['subMenus2' => function($query) {
+                    $query->where('flag', 'show')
+                        ->where('show_status', 'yes');
+                }]);
+        }])
+        ->get();
+
+    // Return the fetched data
+    return response()->json($navMenus);
+}
+
 }    

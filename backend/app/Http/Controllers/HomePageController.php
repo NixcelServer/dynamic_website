@@ -16,11 +16,29 @@ use Illuminate\Support\Facades\DB;
 class HomePageController extends Controller
 {
     //
+    public function getHPSliderImgs()
+{
+    // Fetch all HomePageSliderImage with their subheadings where flag is 'show'
+    $hpSliderImgs = HomePageSliderImage::with(['subheadings' => function ($query) {
+        $query->where('flag', 'show');
+    }])->where('flag', 'show')->get();
+
+    foreach ($hpSliderImgs as $img){
+        $img->encHPSliderImgId = EncDecHelper::encDecId($img->tbl_hp_slider_img_id,'encrypt');
+        unset($img->tbl_hp_slider_img_id);
+    }
+    
+    // Return the data as JSON response
+    return response()->json($hpSliderImgs, 200);
+}
+
+
     public function newHPSliderImgs(Request $request)
     {
+        //return response()->json($request,200);
         $hpSliderImg = new HomePageSliderImage();
         $bgImg = $request->file('bgImg');
-        $bgImgPath = $bgImg->storeAs('uploads', $bgImg->getClientOriginalName(), 'public');
+        $bgImgPath = $bgImg->storeAs('Home Page', $bgImg->getClientOriginalName(), 'public');
         $hpSliderImg->slider_img_path = $bgImgPath;
         $hpSliderImg->heading = $request->heading;
         $hpSliderImg->add_date = Date::now()->toDateString();
@@ -46,9 +64,11 @@ class HomePageController extends Controller
     {
         $decHPSliderImgId = EncDecHelper::encDecId($request->encHPSliderImgId,'decrypt');
         $hpSliderImg = HomePageSliderImage::find($decHPSliderImgId);
+        if($request->hasFile('bgImg')){
         $bgImg = $request->file('bgImg');
-        $bgImgPath = $bgImg->storeAs('uploads', $bgImg->getClientOriginalName(), 'public');
+        $bgImgPath = $bgImg->storeAs('Home Page', $bgImg->getClientOriginalName(), 'public');
         $hpSliderImg->slider_img_path = $bgImgPath;
+        }
         $hpSliderImg->heading = $request->heading;
         $hpSliderImg->updated_date = Date::now()->toDateString();
         $hpSliderImg->updated_time = Date::now()->toTimeString();
@@ -86,11 +106,18 @@ class HomePageController extends Controller
 
     }
 
+    public function getAboutUs(Request $request)
+    {
+        $aboutUs = CompanyDescription::first();
+        unset($aboutUs->tbl_cmp_desc_id);
+        return response()->json($aboutUs, 200);
+    }
+
     public function editAboutUs(Request $request)
     {
         // DB::beginTransaction();
 
-        try {
+        // try {
             $aboutUs = CompanyDescription::first();
             if (!$aboutUs) {
                 $aboutUs = new CompanyDescription();
@@ -103,33 +130,38 @@ class HomePageController extends Controller
             $aboutUs->show_status = $request->display;
             $aboutUs->updated_date = Date::now()->toDateString();
             $aboutUs->updated_time = Date::now()->toTimeString();
+            if ($request->hasFile('imgs')) {
+                $image = $request->file('imgs');
+                $imgPath = $image->storeAs('About Us', $image->getClientOriginalName(), 'public');
+                $aboutUs->cmp_desc_img_path = $imgPath;
+            }
             $aboutUs->save();
 
-            // Debugging: Check if the record exists in the database
-            if (!CompanyDescription::find($aboutUs->tbl_cmp_desc_id)) {
-                throw new \Exception('The referenced tbl_cmp_desc_id does not exist.');
-            }
+            // // Debugging: Check if the record exists in the database
+            // if (!CompanyDescription::find($aboutUs->tbl_cmp_desc_id)) {
+            //     throw new \Exception('The referenced tbl_cmp_desc_id does not exist.');
+            // }
             
-            if ($request->hasFile('imgs')) {
-                foreach ($request->file('imgs') as $image) {
-                    $descImg = new CompanyDescriptionImages();
-                    $descImg->tbl_cmp_desc_id = $aboutUs->tbl_cmp_desc_id;
+            // if ($request->hasFile('imgs')) {
+            //     foreach ($request->file('imgs') as $image) {
+            //         $descImg = new CompanyDescriptionImages();
+            //         $descImg->tbl_cmp_desc_id = $aboutUs->tbl_cmp_desc_id;
 
-                    $imgPath = $image->storeAs('uploads', $image->getClientOriginalName(), 'public');
+            //         $imgPath = $image->storeAs('uploads', $image->getClientOriginalName(), 'public');
 
-                    $descImg->cmp_desc_img_path = $imgPath;
-                    $descImg->add_date = Date::now()->toDateString();
-                    $descImg->add_time = Date::now()->toTimeString();
-                    $descImg->flag = 'show';
-                    $descImg->save();
-                }
-            }
+            //         $descImg->cmp_desc_img_path = $imgPath;
+            //         $descImg->add_date = Date::now()->toDateString();
+            //         $descImg->add_time = Date::now()->toTimeString();
+            //         $descImg->flag = 'show';
+            //         $descImg->save();
+            //     }
+            // }
 
             // DB::commit();
             return response()->json(['message' => 'About Us section updated successfully'], 200);
-        } catch (\Exception $e) {
-            // DB::rollBack();
-            return response()->json(['message' => 'Failed to update About Us section', 'error' => $e->getMessage()], 500);
-        }
+        // } catch (\Exception $e) {
+        //     // DB::rollBack();
+        //     return response()->json(['message' => 'Failed to update About Us section', 'error' => $e->getMessage()], 500);
+        // }
     }
 }

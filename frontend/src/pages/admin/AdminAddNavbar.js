@@ -10,12 +10,12 @@ import { useNavigate } from 'react-router-dom';
 
 
 const dropdownMenu = [
-    { id: 1, label: 'About Us' },
-    { id: 2, label: 'Home' },
-    { id: 3, label: 'Products' },
-    { id: 4, label: 'Services' },
-    { id: 5, label: 'Contact Us' },
-    { id: 6, label: 'Test' }
+    { id: 1, label: 'About Us', link: '/web/about-us' },
+    { id: 2, label: 'Home', link:'/' },
+    { id: 3, label: 'Products', link:'/web/products' },
+    { id: 4, label: 'Services', link:'/web/services' },
+    { id: 5, label: 'Contact Us', link:'/web/contact-us' },
+    { id: 6, label: 'Projects', link:'/web/projects' }
 
 ];
 
@@ -26,6 +26,7 @@ function AdminAddNavbar() {
     const [icon, setIcon] = useState(null);
     const [bgImg, setBgImg] = useState(null);
     const [display,setDisplay] = useState('');
+    const [menuLink, setMenuLink] = useState('');
     const dispatch = useDispatch();
     const navmenu = useSelector(state => state.navbarMenu.navmenu);
     //console.log("navmenu",navmenu);
@@ -39,7 +40,14 @@ function AdminAddNavbar() {
 
 
     const handleMenuChange = (event) => {
-        setNavbarName(event.target.value);
+        const selectedMenu = dropdownMenu.find(item => item.label === event.target.value);
+        if (selectedMenu) {
+            setNavbarName(selectedMenu.label);
+            setMenuLink(selectedMenu.link);
+        } else {
+            setNavbarName('');
+            setMenuLink('');
+        }
     };
 
     const handleSequenceChange = (event) => {
@@ -71,6 +79,7 @@ function AdminAddNavbar() {
         formData.append('icon', icon);
         formData.append('bgImg', bgImg);
         formData.append('display', display);
+        formData.append('link', menuLink);  // Include the menu link
     
         try {
             // Make the POST request using Axios
@@ -187,6 +196,8 @@ function AdminAddNavbar() {
                                                     required
                                                 />
                                                 <label htmlFor="displayYes" className="form-check-label mr-3">Yes</label>
+                                            </div>
+                                            <div className="form-check form-check-inline">
                                                 <input
                                                     type="radio"
                                                     id="displayNo"

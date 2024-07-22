@@ -21,6 +21,6 @@ class SubMenu1 extends Model
     // Define the hasMany relationship with SubMenu2
     public function subMenus2()
     {
-        return $this->hasMany(SubMenu2::class, 'tbl_sub_menu_1_id', 'tbl_sub_menu_1_id');
+        return $this->hasMany(SubMenu2::class, 'tbl_n_sub_menu_1_id', 'tbl_n_sub_menu_1_id');
     }
 }

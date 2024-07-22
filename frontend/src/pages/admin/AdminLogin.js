@@ -86,7 +86,7 @@ const AdminLogin = ({ onLogin }) => {
                   </div>
                 </div>
                 <div className="col-4">
-                  <button type="submit" className="btn btn-primary btn-block">Sign In</button>
+                  <button type="submit" className="btn btn-primary">Sign In</button>
                 </div>
               </div>
             </form>

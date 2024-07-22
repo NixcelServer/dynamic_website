@@ -32,3 +32,13 @@ export const getSubMenu2API = async(encSubMenu1Id) => {
   //   dispatch(getCategories(categories));
     return res.data;
 }
+
+export const getAllNavMenuAPI = async() => {
+  console.log("in navmenu api")
+  const res = await axios.get(`${baseURL}get-all-nav-menu`);
+  console.log(res);
+  
+  //const categories = res.data;
+  //   dispatch(getCategories(categories));
+    return res.data;
+}

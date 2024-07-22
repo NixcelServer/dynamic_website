@@ -39,6 +39,8 @@ Route::delete('/nav-menu-delete/{id}', [NavMenuController::class, 'deleteNavMenu
 
 Route::get('/get-navmenu',[NavMenuController::class,'getNavMenu']);
 
+Route::get('/get-all-nav-menu',[NavMenuController::class,'getAllNavMenu']);
+
 //sub menu 1
 Route::get('/get-submenu1/{id}',[SubMenu1Controller::class,'getSubMenu1']);
 
@@ -60,7 +62,11 @@ Route::post('/update-sub-menu-2',[SubMenu2Controller::class,'updateSubMenu2']);
 Route::delete('/sub-menu-2-delete/{id}',[SubMenu2Controller::class,'deleteSubMenu2']);
 
 //company details
+Route::get('/get-cmp-details',[CompanyController::class,'getCompanyDetails']);
+
 Route::post('/company-details',[CompanyController::class,'storeCompanyDetails']);
+
+Route::get('/get-cmp-address',[CompanyController::class,'getCompanyAddress']);
 
 //company-address
 Route::post('/company-address',[CompanyController::class,'addCompanyAddress']);
@@ -72,6 +78,9 @@ Route::post('/update-company-address',[CompanyController::class,'updateCompanyAd
 Route::delete('/delete-company-address/{id}',[CompanyController::class,'deleteCompanyAddress']);
 
 //Home Page Slider Images
+
+Route::get('/get-hp-slider-imgs',[HomePageController::class,'getHPSliderImgs']);
+
 Route::post('/add-hp-sliders-imgs',[HomePageController::class,'newHPSliderImgs']);
 
 Route::post('/update-hp-slider-imgs',[HomePageController::class,'updateHPSliderImgs']);
@@ -79,6 +88,8 @@ Route::post('/update-hp-slider-imgs',[HomePageController::class,'updateHPSliderI
 Route::delete('/delete-hp-slider-imgs/{id}',[HomePageController::class,'deleteHPSliderImg']);
 
 //about us 
+Route::get('/get-about-us',[HomePageController::class,'getAboutUs']);
+
 Route::post('/edit-about-us',[HomePageController::class,'editAboutUs']);
 
 //product api's

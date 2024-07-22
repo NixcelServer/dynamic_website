@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('show_status', 45); // Show status
             $table->integer('sequence_no')->nullable(); // Sequence number
             $table->string('n_menu_bg_img')->nullable(); // Background image for menu (nullable)
+            $table->string('link')->nullable();
             $table->date('add_date'); // Date added
             $table->time('add_time'); // Time added
             $table->date('updated_date')->nullable(); // Date updated, nullable

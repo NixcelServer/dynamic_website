@@ -13,6 +13,18 @@ import { useSelector } from 'react-redux';
 import UpdateNavMenu from './pages/admin/UpdateNavMenu';
 import SubMenu1 from './pages/admin/SubMenu1';
 import SubMenu2 from './pages/admin/SubMenu2';
+import CompanyDetails from './pages/admin/CompanyDetails';
+import CompanyAddress from './pages/admin/CompanyAddress';
+import UpdateCompanyAddress from './pages/admin/UpdateCompanyAddress';
+import AddCompanyAddress from './pages/admin/AddCompanyAddress';
+import HPSliderImgs from './pages/admin/HPSliderImgs';
+import AboutUs from './pages/admin/AboutUs';
+import AboutUsW from './components/web/AboutUsW';
+import Footer from './components/web/Footer';
+import Test from './components/web/Test';
+import ContactUs from './components/web/ContactUs';
+import Service from './components/web/Service';
+import ServiceInfo from './components/web/ServiceInfo';
 
 function App() {
   const isAuthenticated = useSelector(state => state.authReducer.isLogin);
@@ -28,8 +40,45 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          
           {/* Non-admin routes */}
-          <Route path="/" element={<NavbarAndRoutes />} />
+          <Route path="/" element={<>
+            <Navbar />
+            <Home />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/about-us" element={<>
+            <Navbar />
+            <AboutUsW />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/contact-us" element={<>
+            <Navbar />
+            <ContactUs />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+          
+          <Route path="/web/services" element={<>
+            <Navbar />
+            <Service />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/service/info" element={<>
+            <Navbar />
+            <ServiceInfo />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/test" element={<Test />} />
+
 
           <Route path="/user-log" element={<AdminLogin />} />
 
@@ -56,12 +105,13 @@ function App() {
   );
 }
 
-const NavbarAndRoutes = () => {
+const WebRoutes = () => {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="aboutus" element={<AboutUsW />} />
         {/* Add other non-admin routes here */}
       </Routes>
     </>
@@ -81,6 +131,13 @@ const AdminRoutes = () => {
         <Route path="edit-navbar-menu" element={<UpdateNavMenu />} />
         <Route path="sub-menu-1" element={<SubMenu1 />} />
         <Route path="sub-menu-2" element={<SubMenu2 />} />
+        <Route path="company-desc" element={<CompanyDetails/>} />
+        <Route path="company-address" element={<CompanyAddress />} />
+        <Route path="edit-address" element={<UpdateCompanyAddress />} />
+        <Route path="add-company-address" element={<AddCompanyAddress />} />
+        <Route path="hp-slider-imgs" element={<HPSliderImgs />} />
+        <Route path="about-us" element={<AboutUs />} />
+        
 
         {/* Add more admin routes here as needed */}
       </Routes>

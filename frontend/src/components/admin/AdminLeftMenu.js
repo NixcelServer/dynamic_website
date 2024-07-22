@@ -58,6 +58,16 @@ function AdminLeftMenu() {
           </Link>
         </li>
         <li className="nav-item">
+          <Link to="/admin/hp-slider-imgs" className="nav-link">
+          {/* <Link to="#" className="nav-link"> */}
+            <i className="nav-icon fas fa-th" />
+            <p>
+              Home Page Sider <p style={{ display: 'inline', marginLeft: '30px' }}>Images</p>
+              {/* <span className="right badge badge-danger">New</span> */}
+            </p>
+          </Link>
+        </li>
+        <li className="nav-item">
           <a href="#" className="nav-link">
             <i className="nav-icon fas fa-copy" />
             <p>
@@ -212,13 +222,13 @@ function AdminLeftMenu() {
           </ul> */}
         </li>
         <li className="nav-item">
-          <a href="#" className="nav-link">
+          <Link to="/admin/company-desc" className="nav-link">
             <i className="nav-icon fas fa-edit" />
             <p>
               Company Description
               {/* <i className="fas fa-angle-left right" /> */}
             </p>
-          </a>
+          </Link>
           {/* <ul className="nav nav-treeview">
             <li className="nav-item">
               <a href="pages/forms/general.html" className="nav-link">
@@ -247,13 +257,23 @@ function AdminLeftMenu() {
           </ul> */}
         </li>
         <li className="nav-item">
-          <a href="#" className="nav-link">
-            <i className="nav-icon fas fa-table" />
+          <Link to="/admin/company-address" className="nav-link">
+          {/* <Link to="#" className="nav-link"> */}
+            <i className="nav-icon fas fa-th" />
+            <p>
+              Company Address 
+              {/* <span className="right badge badge-danger">New</span> */}
+            </p>
+          </Link>
+        </li>
+        <li className="nav-item">
+        <Link to="/admin/about-us" className="nav-link">
+        <i className="nav-icon fas fa-table" />
             <p>
               About Us
               {/* <i className="fas fa-angle-left right" /> */}
             </p>
-          </a>
+          </Link>
           {/* <ul className="nav nav-treeview">
             <li className="nav-item">
               <a href="pages/tables/simple.html" className="nav-link">
