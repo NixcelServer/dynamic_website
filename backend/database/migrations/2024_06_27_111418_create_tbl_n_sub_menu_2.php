@@ -18,6 +18,7 @@ return new class extends Migration
             $table->binary('sub_menu_2_desc')->nullable(); // Sub menu 2 description (nullable)
             $table->string('show_status', 45); // Show status
             $table->integer('sequence_no')->nullable(); // Sequence number
+            $table->string('link')->nullable();
             $table->date('add_date'); // Date added
             $table->time('add_time'); // Time added
             $table->date('updated_date')->nullable(); // Date updated, nullable

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCmpAddress, getCmpDetails } from '../../redux/Company/company.action';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function Footer() {
   const dispatch = useDispatch();
@@ -15,6 +17,10 @@ function Footer() {
     dispatch(getCmpAddress());
     dispatch(getCmpDetails());
   }, [dispatch]);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+}, []);
 
   const contentStyle = {
     color: '#6c757d', // Set the desired color for the content
@@ -35,7 +41,7 @@ function Footer() {
   return (
     <div>
       <footer className="site-footer" role="contentinfo">
-        <div className="container">
+        <div className="container" data-aos="fade-up">
           <div className="row mb-5">
             <div className="col-md-4 mb-5">
               <h3>About Us</h3>

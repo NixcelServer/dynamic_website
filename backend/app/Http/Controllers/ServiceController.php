@@ -13,6 +13,82 @@ use Illuminate\Support\Facades\DB;
 class ServiceController extends Controller
 {
     //
+    public function getServiceDetails()
+    {
+        $services = Service::with(['images'=>function($query){
+            $query->where('flag','show');
+        }])->where('flag','show')->get();
+
+        foreach ($services as $service){
+            $service->encServiceId = EncDecHelper::encDecId($service->tbl_service_id,'encrypt');
+            $service->encNavMenuId = EncDecHelper::encDecId($service->tbl_nav_menu_id,'encrypt');
+            $service->encSubMenu1Id = EncDecHelper::encDecId($service->tbl_n_sub_menu_1_id,'encrypt');
+            $service->encSubMenu2Id = EncDecHelper::encDecId($service->tbl_n_sub_menu_2_id,'encrypt');
+
+            unset($service->tbl_service_id,$service->tbl_nav_menu_id,$service->tbl_n_sub_menu_1_id,$service->tbl_n_sub_menu_2_id);
+        }
+
+        return response()->json($services, 200);
+    }
+
+    public function getServices(){
+        $services = Service::with(['images'=>function($query){
+            $query->where('flag','show');
+        }])->where('show_status','yes')->where('flag','show')->get();
+
+        foreach ($services as $service){
+            $service->encServiceId = EncDecHelper::encDecId($service->tbl_service_id,'encrypt');
+            $service->encNavMenuId = EncDecHelper::encDecId($service->tbl_nav_menu_id,'encrypt');
+            $service->encSubMenu1Id = EncDecHelper::encDecId($service->tbl_n_sub_menu_1_id,'encrypt');
+            $service->encSubMenu2Id = EncDecHelper::encDecId($service->tbl_n_sub_menu_2_id,'encrypt');
+
+            unset($service->tbl_service_id,$service->tbl_nav_menu_id,$service->tbl_n_sub_menu_1_id,$service->tbl_n_sub_menu_2_id);
+        }
+
+        return response()->json($services, 200);
+    }
+
+    public function getServiceSB1Content($id){
+        $subMenu1Id = EncDecHelper::encDecId($id,'decrypt');
+
+        $services = Service::where('tbl_n_sub_menu_1_id', $subMenu1Id)
+        ->where('show_status', 'yes')
+        ->where('flag', 'show')
+        ->with('images') // Eager load the images relationship
+        ->get();
+    $withSubMenu2 = [];
+    $withoutSubMenu2 = [];
+
+    foreach ($services as $service) {
+        if (!empty($service->tbl_n_sub_menu_2_id)) {
+            $withSubMenu2[] = $service;
+        } else {
+            $withoutSubMenu2[] = $service;
+        }
+    }
+
+    return response()->json([
+        'withSubMenu2' => $withSubMenu2,
+        'withoutSubMenu2' => $withoutSubMenu2,
+    ]);
+    }
+
+    public function getServiceSB2Content($id){
+        $subMenu2Id = EncDecHelper::encDecId($id,'decrypt');
+
+        $services = Service::where('tbl_n_sub_menu_2_id', $subMenu2Id)
+        ->where('show_status', 'yes')
+        ->where('flag', 'show')
+        ->with('images') // Eager load the images relationship
+        ->get();
+    
+
+    
+
+    return response()->json( $services,200
+    );
+    }
+
     public function newService(Request $request)
     {
         DB::beginTransaction();
@@ -39,7 +115,7 @@ class ServiceController extends Controller
                     $serviceImg = new ServiceImages();
                     $serviceImg->tbl_service_id = $service->tbl_service_id;
 
-                    $imgPath = $image->storeAs('uploads', $image->getClientOriginalName(), 'public');
+                    $imgPath = $image->storeAs('Services', $image->getClientOriginalName(), 'public');
 
                     $serviceImg->service_img_path = $imgPath;
                     $serviceImg->add_date = Date::now()->toDateString();
@@ -86,7 +162,7 @@ class ServiceController extends Controller
                     $serviceImg = new ServiceImages();
                     $serviceImg->tbl_service_id = $service->tbl_service_id;
 
-                    $imgPath = $image->storeAs('uploads', $image->getClientOriginalName(), 'public');
+                    $imgPath = $image->storeAs('Services', $image->getClientOriginalName(), 'public');
 
                     $serviceImg->service_img_path = $imgPath;
                     $serviceImg->add_date = Date::now()->toDateString();

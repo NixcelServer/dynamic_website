@@ -3,7 +3,10 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllNavMenu } from '../../redux/NavMenu/navmenu.action';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import "../../Industries/css/servicecard.css"; // Ensure correct path to your custom CSS file
+import { getServices } from '../../redux/Service/service.action';
+
 
 function Service() {
     const dispatch = useDispatch();
@@ -11,6 +14,13 @@ function Service() {
     const foundMenu = navmenu.find(menu => menu.n_menu_name === 'Services');
     const defaultImgUrl = "/Industries/images/hero_2.jpg";
     const [imageLoaded, setImageLoaded] = useState(false);
+    const services = useSelector(state => state.services.servicesWeb);
+    const navigate = useNavigate();
+
+  const handleReadMore = (service) => {
+    navigate('/web/single-service', { state: { service } });
+  };
+
 
     // Function to get the background image URL
     const getBackgroundImage = () => {
@@ -26,6 +36,7 @@ function Service() {
 
     useEffect(() => {
         dispatch(getAllNavMenu());
+        dispatch(getServices());
     }, [dispatch]);
 
     return (
@@ -82,10 +93,7 @@ function Service() {
                         <div className="row justify-content-center mb-5 element-animated" data-aos="fade-up">
                             <div className="col-md-12">
                                 <h2 className="heading mb-4"><strong>Industries Services</strong></h2>
-                                <p className="mb-5 lead" style={{ color: '#6c757d', fontSize: '1.4rem' }}>
-                                    Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.
-                                    {/* {foundMenu.n_menu_desc} */}
-                                </p>
+                                
                                 {foundMenu ? (
                                     <div 
                                     className="mb-5 lead"
@@ -99,79 +107,55 @@ function Service() {
                     </div>
                 </section>
 
-                <section className="section bg-light mt-4 pt-4" style={{ marginBottom: '20px', paddingTop: '5px', paddingBottom: '10px' }}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-6 col-lg-4 element-animated" data-aos="fade-up">
-                                <div className="media block-6 d-block text-center">
-                                    <div className="icon mb-3"><span className="ion-bookmark" style={{ color: '#fd5f00' }} /></div>
-                                    <div className="media-body">
-                                        <h3 className="heading"><strong>Automotive Parts</strong></h3>
-                                        <p style={{ color: '#6c757d' }}>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                                        <Link to="/web/service/info" >Read More</Link>
-                                    </div>
-                                </div>  
-                            </div>
-                            <div className="col-md-6 col-lg-4 element-animated" data-aos="fade-up">
-                                <div className="media block-6 d-block text-center">
-                                    <div className="icon mb-3"><span className="ion-heart" style={{ color: '#fd5f00' }} /></div>
-                                    <div className="media-body">
-                                        <h3 className="heading"><strong>Maintenance Services</strong></h3>
-                                        <p style={{ color: '#6c757d' }}>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                                        <a href="#more-info" >Read More</a>
-                                    </div>
-                                </div> 
-                            </div>
-                            <div className="col-md-6 col-lg-4 element-animated" data-aos="fade-up">
-                                <div className="media block-6 d-block text-center">
-                                    <div className="icon mb-3"><span className="ion-leaf" style={{ color: '#fd5f00' }} /></div>
-                                    <div className="media-body">
-                                        <h3 className="heading"><strong>Green Energy</strong></h3>
-                                        <p style={{ color: '#6c757d' }}>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                                        <a href="#more-info" >Read More</a>
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <div className="container">
+      <div className="text-center mx-auto wow fadeInUp" data-aos="fade-up" style={{ maxWidth: 500 }}>
+        <p className="fs-5 fw-bold text-primary">Our Services</p>
+        <h1 className="display-5 mb-5">Services That We Offer For You</h1>
+      </div>
+      <div className="row g-4">
+        {services && services.length > 0 ? (
+          services.map((service, index) => (
+            <div key={service.encServiceId} className="col-lg-4 col-md-6 wow fadeInUp" data-aos="fade-up">
+              <div className="service-item rounded d-flex flex-column h-100">
+                <div className="service-img rounded">
+                  <img
+                    className="img-fluid"
+                    src={service.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl}
+                    alt={service.title}
+                  />
+                </div>
+                <div className="service-text rounded p-5 d-flex flex-column" style={{ flex: 1 }}>
+                  <div className="btn-square rounded-circle mx-auto mb-3" style={{ width: 100, height: 100, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img
+                      className="img-fluid"
+                      src={service.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl}
+                      alt="Icon"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                  <h4 className="mb-3" style={{ minHeight: 60 }}>{service.service_name}</h4>
+                  <p className="mb-4 text-truncate-2-lines" style={{ flex: 1 }}>{service.service_description}</p>
+                  <div className="mt-auto">
+                  <button
+                      onClick={() => handleReadMore(service)}
+                      className="btn btn-sm"
+                    >
+                      <i className="fa fa-plus text-primary me-2" />Read More
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No services available.</p>
+        )}
+      </div>
+    </div>
+            
 
-                <section className="section bg-light mt-4 pt-4" style={{ marginBottom: '20px', paddingTop: '5px', paddingBottom: '10px' }}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-6 col-lg-4 element-animated" data-aos="fade-up">
-                                <div className="media block-6 d-block text-center">
-                                    <div className="icon mb-3"><span className="ion-bookmark" style={{ color: '#fd5f00' }} /></div>
-                                    <div className="media-body">
-                                        <h3 className="heading"><strong>Automotive Parts</strong></h3>
-                                        <p style={{ color: '#6c757d' }}>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                                        <a href="#more-info" >Read More</a>
-                                    </div>
-                                </div>  
-                            </div>
-                            <div className="col-md-6 col-lg-4 element-animated" data-aos="fade-up">
-                                <div className="media block-6 d-block text-center">
-                                    <div className="icon mb-3"><span className="ion-heart" style={{ color: '#fd5f00' }} /></div>
-                                    <div className="media-body">
-                                        <h3 className="heading"><strong>Maintenance Services</strong></h3>
-                                        <p style={{ color: '#6c757d' }}>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                                        <a href="#more-info" >Read More</a>
-                                    </div>
-                                </div> 
-                            </div>
-                            <div className="col-md-6 col-lg-4 element-animated" data-aos="fade-up">
-                                <div className="media block-6 d-block text-center">
-                                    <div className="icon mb-3"><span className="ion-leaf" style={{ color: '#fd5f00' }} /></div>
-                                    <div className="media-body">
-                                        <h3 className="heading"><strong>Green Energy</strong></h3>
-                                        <p style={{ color: '#6c757d' }}>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                                        <a href="#more-info" >Read More</a>
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                </section>
+
+
             </div>
         </div>
     );

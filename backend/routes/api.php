@@ -101,6 +101,16 @@ Route::post('/update-product',[ProductController::class,'updateProduct']);
 Route::delete('/delete-product/{id}',[ProductController::class,'deleteProduct']);
 
 //service api's
+//get services
+Route::get('/get-services',[ServiceController::class,'getServices']);
+Route::get('/get-service-details',[ServiceController::class,'getServiceDetails']);
+
+//service sub menu 1 content
+Route::get('/get-service-sb1-content/{id}',[ServiceController::class,'getServiceSB1Content']);
+
+Route::get('/get-service-sb2-content/{id}',[ServiceController::class,'getServiceSB2Content']);
+
+
 //new service
 Route::post('/new-service',[ServiceController::class,'newService']);
 

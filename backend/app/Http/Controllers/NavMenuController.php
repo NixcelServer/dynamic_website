@@ -155,7 +155,7 @@ class NavMenuController extends Controller
     public function getAllNavMenu()
 {
     // Fetch all nav menus where flag is 'show' and show_status is 'yes'
-    // and eager load the subMenus1 and subMenus2 relationships where show_status is 'yes' and flag is 'show'
+    // and eager load the subMenus and subMenus2 relationships where show_status is 'yes' and flag is 'show'
     $navMenus = NavbarMenu::where('flag', 'show')
         ->where('show_status', 'yes')
         ->with(['subMenus' => function($query) {
@@ -168,8 +168,34 @@ class NavMenuController extends Controller
         }])
         ->get();
 
-    // Return the fetched data
+    // Encrypt the IDs and unset the original IDs
+    $navMenus->transform(function($navMenu) {
+        $navMenu->encNavMenuId = EncDecHelper::encDecID($navMenu->tbl_nav_menu_id, 'encrypt');
+        $navMenu->makeHidden(['tbl_nav_menu_id']); // Hide the original ID
+
+        $navMenu->subMenus->transform(function($subMenu) {
+            $subMenu->encSubMenu1Id = EncDecHelper::encDecID($subMenu->tbl_n_sub_menu_1_id, 'encrypt');
+            $subMenu->makeHidden(['tbl_n_sub_menu_1_id']); // Hide the original ID
+            $subMenu->makeHidden(['tbl_nav_menu_id']);
+
+            $subMenu->subMenus2->transform(function($subMenu2) {
+                $subMenu2->encSubMenu2Id = EncDecHelper::encDecID($subMenu2->tbl_n_sub_menu_2_id, 'encrypt');
+                $subMenu2->makeHidden(['tbl_n_sub_menu_2_id']); // Hide the original ID
+                $subMenu2->makeHidden(['tbl_n_sub_menu_1_id']);
+
+                return $subMenu2;
+            });
+
+            return $subMenu;
+        });
+
+        return $navMenu;
+    });
+
+    // Return the modified data
     return response()->json($navMenus);
 }
+
+
 
 }    

@@ -4,18 +4,38 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; 
 import { getHPSliderImgs } from '../../redux/HomePage/homepage.action';
 import { baseURL } from '../../variable';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAboutUs } from '../../redux/Company/company.action';
+import { getServices } from '../../redux/Service/service.action';
 
 function Home() {
   
   const dispatch = useDispatch();
   const hpSliderImgs = useSelector(state => state.hpSliderImgs.hpSliderImgs);
+  const aboutUs = useSelector(state => state.companyDetails.aboutUs);
+  const aboutUsImgUrl = aboutUs && aboutUs.cmp_desc_img_path ? `http://127.0.0.1:8000/storage/${aboutUs.cmp_desc_img_path}` : "/Industries/images/img_2.jpg";
+  const defaultImgUrl = "/Industries/images/hero_2.jpg";
+  const services = useSelector(state => state.services.servicesWeb);
+  const navigate = useNavigate();
+
+
+
+
     console.log(hpSliderImgs);
 
     useEffect(() => {
         dispatch(getHPSliderImgs());
+        dispatch(getAboutUs());
+        dispatch(getServices());
     }, [dispatch]);
 
     // const filteredImages = hpSliderImgs.filter(img => img.show_status === 'yes');
+
+    useEffect(() => {
+      AOS.init({ duration: 1000 });
+  }, []);
 
  
   const slidesToRender = hpSliderImgs.map((slide, index) => ({
@@ -31,6 +51,10 @@ function Home() {
     { src: '/Industries/images/hero_2.jpg', alt: 'Slide 2' }
   ];
 
+  const handleReadMore = (service) => {
+    navigate('/web/single-service', { state: { service } });
+  };
+
   // Determine the number of slides to render
   const slides = slidesToRender.length > 0 ? slidesToRender : defaultImages.slice(0, 2);
 
@@ -43,11 +67,11 @@ function Home() {
       
       
     
-      <section className="carousel-container">
+      <section className="carousel-container" data-aos="fade-up" >
         <Carousel
           showArrows={true}
           autoPlay={true}
-          interval={5000}
+          interval={3000}
           infiniteLoop={true}
           showThumbs={false}
           showStatus={false}
@@ -57,7 +81,7 @@ function Home() {
             <div key={index} className="carousel-slide">
               <img src={slide.src} alt={slide.alt} className="carousel-img" />
               <div className="partial-overlay"></div>
-              <div className="carousel-content">
+              <div className="carousel-content" >
                 <div className="container">
                   <div className="row slider-text align-items-center justify-content-center">
                     <div className="text-center col-sm-12 element-animated">
@@ -79,6 +103,70 @@ function Home() {
         </Carousel>
       </section>
   
+
+      <div className="container-fluid py-5 my-3">
+    <div className="container py-5">
+        <div className="row g-5 align-items-center">
+            <div className="col-lg-5 col-md-6 col-sm-12 wow fadeIn" data-aos="fade-up">
+                <div className="h-100 position-relative mx-auto" style={{ maxWidth: '100%' }}>
+                    <img src="/Industries/images/img_1.jpg" className="img-fluid w-75 rounded" alt="Industry 1" style={{ marginBottom: '25%' }} />
+                    <div className="position-absolute w-75" style={{ top: '25%', left: '25%' }}>
+                        <img src={aboutUsImgUrl} className="img-fluid w-100 rounded" alt="About Us" />
+                    </div>
+                </div>
+            </div>
+            <div className="col-lg-7 col-md-6 col-sm-12 wow fadeIn" data-aos="fade-up">
+                <h5 className="text-primary">About Us</h5>
+                <h1 className="mb-4">About Industries And Its Innovative Solutions</h1>
+                <div
+                    className="mb-3 lead"
+                    style={{ color: '#6c757d', fontSize: '1.2rem', 
+                             display: '-webkit-box',
+                             WebkitBoxOrient: 'vertical',
+                             overflow: 'hidden',
+                             WebkitLineClamp: 5
+                    }}
+                    dangerouslySetInnerHTML={{ __html: aboutUs.cmp_desc }}
+                />
+                <Link to="/web/about-us" className="btn btn-primary" style={{ marginTop: '0px' }}>
+                    Read More
+                </Link>
+            </div>
+        </div>
+
+        {/* Moved section content here */}
+        <div className="row g-5"style={{ marginTop: '10px' }}>
+            <div className="col-md-6 col-lg-4 element-animated" data-aos="fade-up">
+                <div className="media block-6 d-block text-center">
+                    <div className="icon mb-3"><span className="ion-bookmark" style={{ color: '#fd5f00' }} /></div>
+                    <div className="media-body">
+                        <h3 className="heading"><strong>No Hidden Cost</strong></h3>
+                        <p style={{ color: '#6c757d' }}>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                    </div>
+                </div>
+            </div>
+            <div className="col-md-6 col-lg-4 element-animated" data-aos="fade-up">
+                <div className="media block-6 d-block text-center">
+                    <div className="icon mb-3"><span className="ion-heart" style={{ color: '#fd5f00' }} /></div>
+                    <div className="media-body">
+                        <h3 className="heading"><strong>Dedicated Team</strong></h3>
+                        <p style={{ color: '#6c757d' }}>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                    </div>
+                </div>
+            </div>
+            <div className="col-md-6 col-lg-4 element-animated" data-aos="fade-up">
+                <div className="media block-6 d-block text-center">
+                    <div className="icon mb-3"><span className="ion-leaf" style={{ color: '#fd5f00' }} /></div>
+                    <div className="media-body">
+                        <h3 className="heading"><strong>24/7 Available</strong></h3>
+                        <p style={{ color: '#6c757d' }}>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -119,10 +207,10 @@ function Home() {
       </section> */}
   {/* END slider */}
 
-  <section className="section bg-light mt-4 pt-4">
+  {/* <section className="section bg-light mt-4 pt-4">
       <div className="container">
         <div className="row">
-          <div className="col-md-6 col-lg-4 element-animated ">
+          <div className="col-md-6 col-lg-4 element-animated " data-aos="fade-up">
             <div className="media block-6 d-block text-center">
               <div className="icon mb-3"><span className="ion-bookmark" style={{ color: '#fd5f00' }} /></div>
               <div className="media-body">
@@ -131,7 +219,7 @@ function Home() {
               </div>
             </div>  
           </div>
-          <div className="col-md-6 col-lg-4 element-animated ">
+          <div className="col-md-6 col-lg-4 element-animated " data-aos="fade-up">
             <div className="media block-6 d-block text-center">
               <div className="icon mb-3"><span className="ion-heart " style={{ color: '#fd5f00' }} /></div>
               <div className="media-body">
@@ -140,7 +228,7 @@ function Home() {
               </div>
             </div> 
           </div>
-          <div className="col-md-6 col-lg-4 element-animated ">
+          <div className="col-md-6 col-lg-4 element-animated " data-aos="fade-up">
             <div className="media block-6 d-block text-center">
               <div className="icon mb-3"><span className="ion-leaf " style={{ color: '#fd5f00' }} /></div>
               <div className="media-body">
@@ -151,10 +239,56 @@ function Home() {
           </div>
         </div>
       </div>
-    </section>
-  {/* END section */}
-  <section className="section">
+    </section> */}
+
     <div className="container">
+      <div className="text-center mx-auto wow fadeInUp" data-aos="fade-up" style={{ maxWidth: 500 }}>
+        <p className="fs-5 fw-bold text-primary">Our Services</p>
+        <h1 className="display-5 mb-5">Services That We Offer For You</h1>
+      </div>
+      <div className="row g-4">
+        {services && services.length > 0 ? (
+          services.map((service, index) => (
+            <div key={service.encServiceId} className="col-lg-4 col-md-6 wow fadeInUp" data-aos="fade-up">
+              <div className="service-item rounded d-flex flex-column h-100">
+                <div className="service-img rounded">
+                  <img
+                    className="img-fluid"
+                    src={service.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl}
+                    alt={service.title}
+                  />
+                </div>
+                <div className="service-text rounded p-5 d-flex flex-column" style={{ flex: 1 }}>
+                  <div className="btn-square rounded-circle mx-auto mb-3" style={{ width: 100, height: 100, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img
+                      className="img-fluid"
+                      src={service.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl}
+                      alt="Icon"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                  <h4 className="mb-3" style={{ minHeight: 60 }}>{service.service_name}</h4>
+                  <p className="mb-4 text-truncate-2-lines" style={{ flex: 1 }}>{service.service_description}</p>
+                  <div className="mt-auto">
+                  <button
+                      onClick={() => handleReadMore(service)}
+                      className="btn btn-sm"
+                    >
+                      <i className="fa fa-plus text-primary me-2" />Read More
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No services available.</p>
+        )}
+      </div>
+    </div>
+  {/* END section */}
+  {/* <section className="section">
+    <div className="container" data-aos="fade-up">
       <div className="row mb-5">
         <div className="col-12 text-center">
           <h2>We Are Reliable Engineering In House</h2>
@@ -164,7 +298,7 @@ function Home() {
         <div className="col-lg-4 order-lg-1">
           <div className="h-100"><div className="frame h-100"><div className="feature-img-bg h-100" style={{backgroundImage: 'url("/Industries/images/about_1.jpg")'}} /></div></div>
         </div>
-        <div className="col-md-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-1">
+        <div className="col-md-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-1" data-aos="fade-up">
           <div className="feature-1 d-md-flex">
             <div className="align-self-center">
               <span className="ion ion-leaf display-4" style={{ color: '#fd5f00' }} />
@@ -198,7 +332,7 @@ function Home() {
         </div>
       </div>
     </div>
-  </section>
+  </section> */}
   {/* <section className="section element-animate">
     <div className="container">
       <div className="row align-items-center mb-5">
@@ -219,8 +353,8 @@ function Home() {
   </section> */}
   {/* <section className="section border-t pb-0">
     <div className="container">
-      <div className="row justify-content-center mb-5 element-animate">
-        <div className="col-md-8 text-center">
+      <div className="row justify-content-center mb-5 ">
+        <div className="col-md-8 text-center" data-aos="fade-up">
           <h2 className=" heading mb-4">Our Latest Projects</h2>
           <p className="mb-5 lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
         </div>
@@ -228,46 +362,46 @@ function Home() {
     </div>
     <div className="container-fluid">
       <div className="row no-gutters">
-        <div className="col-md-4 element-animate">
+        <div className="col-md-4 " data-aos="fade-up">
           <a href="project-single.html" className="link-thumbnail">
             <h3>Ducting Design in Colorado</h3>
             <span className="ion-plus icon" />
-            <img src="images/img_1.jpg" alt="Image" className="img-fluid" />
+            <img src="/Industries/images/img_1.jpg" alt="Image" className="img-fluid" />
           </a>
         </div>
-        <div className="col-md-4 element-animate">
+        <div className="col-md-4" data-aos="fade-up">
           <a href="project-single.html" className="link-thumbnail">
             <h3>Tanks Project In California</h3>
             <span className="ion-plus icon" />
-            <img src="images/img_2.jpg" alt="Image" className="img-fluid" />
+            <img src="/Industries/images/img_2.jpg" alt="Image" className="img-fluid" />
           </a>
         </div>
-        <div className="col-md-4 element-animate">
+        <div className="col-md-4 " data-aos="fade-up">
           <a href="project-single.html" className="link-thumbnail">
             <h3>Structural Design in New York</h3>
             <span className="ion-plus icon" />
-            <img src="images/img_3.jpg" alt="Image" className="img-fluid" />
+            <img src="/Industries/images/img_3.jpg" alt="Image" className="img-fluid" />
           </a>
         </div>
-        <div className="col-md-4 element-animate">
+        <div className="col-md-4 element-animated" data-aos="fade-up">
           <a href="project-single.html" className="link-thumbnail">
             <h3>Stacks Design</h3>
             <span className="ion-plus icon" />
-            <img src="images/img_4.jpg" alt="Image" className="img-fluid" />
+            <img src="/Industries/images/img_4.jpg" alt="Image" className="img-fluid" />
           </a>
         </div>
-        <div className="col-md-4 element-animate">
+        <div className="col-md-4 element-animated" data-aos="fade-up">
           <a href="project-single.html" className="link-thumbnail">
             <h3>Intercate Custom</h3>
             <span className="ion-plus icon" />
-            <img src="images/img_1.jpg" alt="Image" className="img-fluid" />
+            <img src="/Industries/images/img_1.jpg" alt="Image" className="img-fluid" />
           </a>
         </div>
-        <div className="col-md-4 element-animate">
+        <div className="col-md-4 element-animated" data-aos="fade-up">
           <a href="project-single.html" className="link-thumbnail">
             <h3>Banker Design</h3>
             <span className="ion-plus icon" />
-            <img src="images/img_2.jpg" alt="Image" className="img-fluid" />
+            <img src="/Industries/images/img_2.jpg" alt="Image" className="img-fluid" />
           </a>
         </div>
       </div>
@@ -356,7 +490,7 @@ function Home() {
 
   {/* <section className="section blog">
     <div className="container">
-      <div className="row justify-content-center mb-5 element-animate">
+      <div className="row justify-content-center mb-5 element-animated" data-aos="fade-up">
         <div className="col-md-8 text-center">
           <h2 className=" heading mb-4">Blog Posts</h2>
           <p className="mb-5 lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
@@ -364,16 +498,16 @@ function Home() {
       </div>
       <div className="row">
         <div className="col-md-6">
-          <div className="media mb-4 d-md-flex d-block element-animate">
-            <a href="single.html" className="mr-5"><img src="images/img_2.jpg" alt="Free website template by Free-Template.co" className="img-fluid" /></a>
+          <div className="media mb-4 d-md-flex d-block element-animated" data-aos="fade-up">
+            <a href="single.html" className="mr-5"><img src="/Industries/images/img_2.jpg" alt="Free website template by Free-Template.co" className="img-fluid" /></a>
             <div className="media-body">
               <span className="post-meta">Feb 26th, 2018</span>
               <h3 className="mt-2 text-black"><a href="single.html">Separated they live in Bookmarksgrove right</a></h3>
               <p><a href="single.html" className="readmore">Read More <span className="ion-android-arrow-dropright-circle" /></a></p>
             </div>
           </div>
-          <div className="media mb-4 d-md-flex d-block element-animate">
-            <a href="single.html" className="mr-5"><img src="images/img_3.jpg" alt="Free website template by Free-Template.co" className="img-fluid" /></a>
+          <div className="media mb-4 d-md-flex d-block element-animated" data-aos="fade-up">
+            <a href="single.html" className="mr-5"><img src="/Industries/images/img_3.jpg" alt="Free website template by Free-Template.co" className="img-fluid" /></a>
             <div className="media-body">
               <span className="post-meta">Feb 26th, 2018</span>
               <h3 className="mt-2 text-black"><a href="single.html">Separated they live in Bookmarksgrove right</a></h3>
@@ -382,16 +516,16 @@ function Home() {
           </div>
         </div>
         <div className="col-md-6">
-          <div className="media mb-4 d-md-flex d-block element-animate">
-            <a href="single.html" className="mr-5"><img src="images/img_2.jpg" alt="Free website template by Free-Template.co" className="img-fluid" /></a>
+          <div className="media mb-4 d-md-flex d-block element-animated" data-aos="fade-up">
+            <a href="single.html" className="mr-5"><img src="/Industries/images/img_2.jpg" alt="Free website template by Free-Template.co" className="img-fluid" /></a>
             <div className="media-body">
               <span className="post-meta">Feb 26th, 2018</span>
               <h3 className="mt-2 text-black"><a href="single.html">Separated they live in Bookmarksgrove right</a></h3>
               <p><a href="single.html" className="readmore">Read More <span className="ion-android-arrow-dropright-circle" /></a></p>
             </div>
           </div>
-          <div className="media mb-4 d-md-flex d-block element-animate">
-            <a href="single.html" className="mr-5"><img src="images/img_3.jpg" alt="Free website template by Free-Template.co" className="img-fluid" /></a>
+          <div className="media mb-4 d-md-flex d-block element-animated" data-aos="fade-up">
+            <a href="single.html" className="mr-5"><img src="/Industries/images/img_3.jpg" alt="Free website template by Free-Template.co" className="img-fluid" /></a>
             <div className="media-body">
               <span className="post-meta">Feb 26th, 2018</span>
               <h3 className="mt-2 text-black"><a href="single.html">Separated they live in Bookmarksgrove right</a></h3>
@@ -402,19 +536,23 @@ function Home() {
       </div>
     </div>
   </section> */}
-  {/* <section className="section bg-primary">
+  <section className="section "  style={{ 
+                                                backgroundColor: '#fd5f00', 
+                                                borderColor: '#fd5f00', 
+                                                // White text color for the button
+                                            }}>
     <div className="container">
       <div className="row align-items-center">
-        <div className="col-lg-8">
+        <div className="col-lg-8" data-aos="fade-up">
           <h2 className="text-white mb-0">Create, Enhance and Sustain</h2>
           <p className="text-white lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. .</p>
         </div>
         <div className="col-lg-4 text-lg-right">
-          <a href="https://free-template.co/" className="btn btn-outline-white px-4 py-3">Download This Template</a>
+          <a href="https://free-template.co/" className="btn btn-outline-white px-4 py-3 text-white">Subscribe to our Newsletter</a>
         </div>
       </div>
     </div>
-  </section> */}
+  </section>
    {/* END section */}
 
   {/* END footer */}

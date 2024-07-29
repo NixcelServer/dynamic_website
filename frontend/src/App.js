@@ -25,6 +25,14 @@ import Test from './components/web/Test';
 import ContactUs from './components/web/ContactUs';
 import Service from './components/web/Service';
 import ServiceInfo from './components/web/ServiceInfo';
+import AdminService from './pages/admin/AdminService';
+import AddService from './pages/admin/AddService';
+import AdminEditService from './pages/admin/AdminEditService';
+
+import ServiceSubMenu1Page from './pages/web/ServiceSubMenu1Page';
+import ServiceSubMenu2Page from './pages/web/ServiceSubMenu2Page';
+import SingleService from './components/web/SingleService';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const isAuthenticated = useSelector(state => state.authReducer.isLogin);
@@ -38,6 +46,7 @@ function App() {
 
   return (
     <Router>
+       <ScrollToTop />
       <div className="App">
         <Routes>
           
@@ -73,6 +82,27 @@ function App() {
           <Route path="/web/service/info" element={<>
             <Navbar />
             <ServiceInfo />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/single-service" element={<>
+            <Navbar />
+            <SingleService />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/Services/submenu1" element={<>
+            <Navbar />
+            <ServiceSubMenu1Page />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/Services/submenu1/submenu2" element={<>
+            <Navbar />
+            <ServiceSubMenu2Page />
             <Footer/>
              {/* Render your admin page component */}
           </>} />
@@ -137,6 +167,9 @@ const AdminRoutes = () => {
         <Route path="add-company-address" element={<AddCompanyAddress />} />
         <Route path="hp-slider-imgs" element={<HPSliderImgs />} />
         <Route path="about-us" element={<AboutUs />} />
+        <Route path="services" element={<AdminService />} />
+        <Route path="add-service" element={<AddService />} />
+        <Route path="edit-service" element={<AdminEditService />} />
         
 
         {/* Add more admin routes here as needed */}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\EncDecHelper;
+use App\Models\NavbarMenu;
 use App\Models\SubMenu1;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
@@ -45,6 +46,8 @@ class SubMenu1Controller extends Controller
     public function createSubMenu1(Request $request)
     {
         $navMenuId = EncDecHelper::encDecID($request->encNavMenuId,'decrypt');
+        $navMenuName = NavbarMenu::where('tbl_nav_menu_id',$navMenuId)->value('n_menu_name');
+
         $subMenu1 = new SubMenu1;
         $subMenu1->tbl_nav_menu_id = $navMenuId;
         $subMenu1->sub_menu_1_name = $request->subMenu1Name;
@@ -60,6 +63,7 @@ class SubMenu1Controller extends Controller
 
         $subMenu1->show_status = $request->display;
         $subMenu1->sequence_no = $request->sequenceNo;
+        $subMenu1->link = '/web/'.$navMenuName.'/submenu1';
         $subMenu1->add_date = Date::now()->toDateString();
         $subMenu1->add_time = Date::now()->toTimeString();
         $subMenu1->flag = 'show';
@@ -73,6 +77,8 @@ class SubMenu1Controller extends Controller
     public function updateSubMenu1(Request $request)
     {
         $navMenuId = EncDecHelper::encDecID($request->encNavMenuId,'decrypt');
+        $navMenuName = NavbarMenu::where('tbl_nav_menu_id',$navMenuId)->value('n_menu_name');
+
         $subMenu1 = SubMenu1::find(EncDecHelper::encDecId($request->encSubMenu1Id,'decrypt'));
 
         $subMenu1->tbl_nav_menu_id = $navMenuId;
@@ -88,6 +94,7 @@ class SubMenu1Controller extends Controller
 
         $subMenu1->show_status = $request->display;
         $subMenu1->sequence_no = $request->sequenceNo;
+        $subMenu1->link = '/web/'.$navMenuName.'/submenu1';
         $subMenu1->updated_date = Date::now()->toDateString();
         $subMenu1->updated_time = Date::now()->toTimeString();
         $subMenu1->flag = 'show';
