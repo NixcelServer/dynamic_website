@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // or your preferred HTTP client
 import { useDispatch, useSelector } from 'react-redux';
 import { getServiceSb2 } from '../../redux/Service/service.action';
+import { imgURL } from '../../variable';
 
 
 function ServiceSubMenu2Page() {
@@ -46,7 +47,7 @@ function ServiceSubMenu2Page() {
         servicesSB2.map(service => (
           <div className="row" key={service.id}>
             <div className="col-md-6 mb-4">
-              <img src={`http://127.0.0.1:8000/storage/${service.images[0].service_img_path}`} className="img-fluid" alt={service.service_name} />
+              <img src={`${imgURL}${service.images[0].service_img_path}`} className="img-fluid" alt={service.service_name} />
             </div>
             <div className="col-md-6 mb-4">
               <div className="about-text">

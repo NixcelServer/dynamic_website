@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill'
-import { baseURL } from '../../variable';
+import { baseURL, imgURL } from '../../variable';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAboutUs } from '../../redux/Company/company.action';
 
@@ -25,7 +25,7 @@ function AboutUs() {
     if (aboutUs ) {
       setAboutUsDesc(aboutUs.cmp_desc);
       if (aboutUs.cmp_desc_img_path) {
-        setLogoPreview(`http://127.0.0.1:8000/storage/${aboutUs.cmp_desc_img_path}`);
+        setLogoPreview(`${imgURL}${aboutUs.cmp_desc_img_path}`);
         // setFileName('Current logo');
       }
     }

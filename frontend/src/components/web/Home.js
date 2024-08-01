@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; 
 import { getHPSliderImgs } from '../../redux/HomePage/homepage.action';
-import { baseURL } from '../../variable';
+import { baseURL, imgURL } from '../../variable';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ function Home() {
   const dispatch = useDispatch();
   const hpSliderImgs = useSelector(state => state.hpSliderImgs.hpSliderImgs);
   const aboutUs = useSelector(state => state.companyDetails.aboutUs);
-  const aboutUsImgUrl = aboutUs && aboutUs.cmp_desc_img_path ? `http://127.0.0.1:8000/storage/${aboutUs.cmp_desc_img_path}` : "/Industries/images/img_2.jpg";
+  const aboutUsImgUrl = aboutUs && aboutUs.cmp_desc_img_path ? `${imgURL}${aboutUs.cmp_desc_img_path}` : "/Industries/images/img_2.jpg";
   const defaultImgUrl = "/Industries/images/hero_2.jpg";
   const services = useSelector(state => state.services.servicesWeb);
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ function Home() {
 
  
   const slidesToRender = hpSliderImgs.map((slide, index) => ({
-    src: `http://127.0.0.1:8000/storage/${slide.slider_img_path}`,
+    src: `${imgURL}${slide.slider_img_path}`,
     alt: slide.image_alt_text,
     title: slide.heading,
     description: slide.subheadings.map(sub => sub.sub_heading).join(' | ')
@@ -254,7 +254,7 @@ function Home() {
                 <div className="service-img rounded">
                   <img
                     className="img-fluid"
-                    src={service.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl}
+                    src={service.images && service.images.length > 0 ? `${imgURL}${service.images[0].service_img_path}` : defaultImgUrl}
                     alt={service.title}
                   />
                 </div>
@@ -262,7 +262,7 @@ function Home() {
                   <div className="btn-square rounded-circle mx-auto mb-3" style={{ width: 100, height: 100, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <img
                       className="img-fluid"
-                      src={service.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl}
+                      src={service.images && service.images.length > 0 ? `${imgURL}${service.images[0].service_img_path}` : defaultImgUrl}
                       alt="Icon"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
@@ -351,7 +351,10 @@ function Home() {
       </div>
     </div>
   </section> */}
-  {/* <section className="section border-t pb-0">
+
+
+
+   {/* <section className="section border-t pb-0">
     <div className="container">
       <div className="row justify-content-center mb-5 ">
         <div className="col-md-8 text-center" data-aos="fade-up">
@@ -406,8 +409,12 @@ function Home() {
         </div>
       </div>
     </div>
-  </section> */}
+  </section>  */}
   {/* END section */}
+
+
+
+
   {/* <section className="section bg-light block-11">
     <div className="container"> 
       <div className="row justify-content-center mb-5">
@@ -539,6 +546,7 @@ function Home() {
   <section className="section "  style={{ 
                                                 backgroundColor: '#fd5f00', 
                                                 borderColor: '#fd5f00', 
+                                                 marginTop: '60px'
                                                 // White text color for the button
                                             }}>
     <div className="container">

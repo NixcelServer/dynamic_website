@@ -4,7 +4,7 @@ import 'bs-stepper/dist/css/bs-stepper.min.css';
 import Stepper from 'bs-stepper';
 import InputMask from 'react-input-mask';
 import axios from 'axios';
-import { baseURL } from '../../variable';
+import { baseURL, imgURL } from '../../variable';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCmpDetails } from '../../redux/Company/company.action';
@@ -75,7 +75,7 @@ function CompanyDetails() {
         website: company.c_website || '',
       });
       if (company.c_logo_path) {
-        setLogoPreview(`http://127.0.0.1:8000/storage/${company.c_logo_path}`);
+        setLogoPreview(`${imgURL}${company.c_logo_path}`);
         // setFileName('Current logo');
       }
     }

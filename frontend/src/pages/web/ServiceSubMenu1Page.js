@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getServiceSb1 } from '../../redux/Service/service.action';
 import InputMask from 'react-input-mask';
 import { getAllNavMenu } from '../../redux/NavMenu/navmenu.action';
+import { imgURL } from '../../variable';
 
 
 function ServiceSubMenu1Page() {
@@ -26,11 +27,11 @@ function ServiceSubMenu1Page() {
   const navigate = useNavigate();
   const [showAddModal, setShowAddModal] = useState(false);
   const defaultImgUrl = '/path/to/default/image.jpg'; // Replace with your default image path
-  const serviceImgUrl = service?.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl;
+  const serviceImgUrl = service?.images && service.images.length > 0 ? `${imgURL}${service.images[0].service_img_path}` : defaultImgUrl;
 
   const getBackgroundImage = () => {
     if (foundMenu && foundMenu.n_menu_bg_img) {
-        return `http://127.0.0.1:8000/storage/${foundMenu.n_menu_bg_img}`;
+        return `${imgURL}${foundMenu.n_menu_bg_img}`;
     }
     return bgImgUrl;
 };
@@ -283,7 +284,7 @@ function ServiceSubMenu1Page() {
                 >
                   {service.images && service.images.map(image => (
                     <img 
-                      src={`http://127.0.0.1:8000/storage/${service.images[0].service_img_path}`} 
+                      src={`${imgURL}${service.images[0].service_img_path}`} 
                       className="img img-responsive" 
                       alt={service.service_name} 
                       key={image.id} 

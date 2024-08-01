@@ -304,7 +304,7 @@ function SubMenu1() {
                   <div className="form-group col-md-4">
                     <label htmlFor="sequenceNo">Sequence No</label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="sequenceNo"
                       value={sequenceNo}
@@ -413,7 +413,7 @@ function SubMenu1() {
                   <div className="form-group col-md-4">
                     <label htmlFor="sequenceNo">Sequence No</label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="sequenceNo"
                       value={sequenceNo}

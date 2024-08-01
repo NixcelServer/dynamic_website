@@ -108,7 +108,7 @@ function AdminAddNavbar() {
             <section className="content">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                             <div className="card card-primary">
                                 <div className="card-header">
                                     <h3 className="card-title">Navbar Menu</h3>
@@ -139,7 +139,7 @@ function AdminAddNavbar() {
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="sequenceNo">Sequence No</label>
                                                 <input
-                                                    type="text"
+                                                    type="number"
                                                     className="form-control"
                                                     id="sequenceNo"
                                                     value={sequenceNo}

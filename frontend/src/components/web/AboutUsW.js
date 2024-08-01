@@ -5,6 +5,7 @@ import { getAboutUs } from '../../redux/Company/company.action';
 import { getAllNavMenu } from '../../redux/NavMenu/navmenu.action';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { imgURL } from '../../variable';
 
 function AboutUsW() {
     const dispatch = useDispatch();
@@ -12,14 +13,14 @@ function AboutUsW() {
     const navmenu = useSelector(state => state.navbarMenu.allNavMenu);
     const foundMenu = navmenu.find(menu => menu.n_menu_name === 'About Us');
     const defaultImgUrl = "/Industries/images/hero_2.jpg";
-    const aboutUsImgUrl = aboutUs && aboutUs.cmp_desc_img_path ? `http://127.0.0.1:8000/storage/${aboutUs.cmp_desc_img_path}` : "/Industries/images/img_2.jpg";
+    const aboutUsImgUrl = aboutUs && aboutUs.cmp_desc_img_path ? `${imgURL}${aboutUs.cmp_desc_img_path}` : "/Industries/images/img_2.jpg";
 
 
     const [imageLoaded, setImageLoaded] = useState(false);
 
     const getBackgroundImage = () => {
         if (foundMenu && foundMenu.n_menu_bg_img) {
-            return `http://127.0.0.1:8000/storage/${foundMenu.n_menu_bg_img}`;
+            return `${imgURL}${foundMenu.n_menu_bg_img}`;
         }
         return defaultImgUrl;
     };

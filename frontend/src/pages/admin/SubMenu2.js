@@ -307,7 +307,7 @@ console.log("form data",formData)
                   <div className="form-group col-md-4">
                     <label htmlFor="sequenceNo">Sequence No</label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="sequenceNo"
                       value={sequenceNo}
@@ -414,7 +414,7 @@ console.log("form data",formData)
                   <div className="form-group col-md-4">
                     <label htmlFor="sequenceNo">Sequence No</label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="sequenceNo"
                       value={sequenceNo}

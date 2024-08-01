@@ -6,6 +6,7 @@ import { getAllNavMenu } from '../../redux/NavMenu/navmenu.action';
 import { Link, useNavigate } from 'react-router-dom';
 import "../../Industries/css/servicecard.css"; // Ensure correct path to your custom CSS file
 import { getServices } from '../../redux/Service/service.action';
+import { imgURL } from '../../variable';
 
 
 function Service() {
@@ -25,7 +26,7 @@ function Service() {
     // Function to get the background image URL
     const getBackgroundImage = () => {
         if (foundMenu && foundMenu.n_menu_bg_img) {
-            return `http://127.0.0.1:8000/storage/${foundMenu.n_menu_bg_img}`;
+            return `${imgURL}${foundMenu.n_menu_bg_img}`;
         }
         return defaultImgUrl;
     };
@@ -120,7 +121,7 @@ function Service() {
                 <div className="service-img rounded">
                   <img
                     className="img-fluid"
-                    src={service.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl}
+                    src={service.images && service.images.length > 0 ? `${imgURL}${service.images[0].service_img_path}` : defaultImgUrl}
                     alt={service.title}
                   />
                 </div>
@@ -128,7 +129,7 @@ function Service() {
                   <div className="btn-square rounded-circle mx-auto mb-3" style={{ width: 100, height: 100, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <img
                       className="img-fluid"
-                      src={service.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl}
+                      src={service.images && service.images.length > 0 ? `${imgURL}${service.images[0].service_img_path}` : defaultImgUrl}
                       alt="Icon"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />

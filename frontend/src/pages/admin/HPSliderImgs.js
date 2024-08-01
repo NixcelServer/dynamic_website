@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getHPSliderImgs } from '../../redux/HomePage/homepage.action';
-import { baseURL } from '../../variable';
+import { baseURL, imgURL } from '../../variable';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -45,7 +45,7 @@ function HPSliderImgs() {
         setSubheadings(item.subheadings.map(sub => sub.sub_heading));
         setFileName(item.slider_img_path ? item.slider_img_path.replace('Home Page/', '') : '')
         if (item.slider_img_path) {
-            setLogoPreview(`http://127.0.0.1:8000/storage/${item.slider_img_path}`);
+            setLogoPreview(`${imgURL}${item.slider_img_path}`);
             // setFileName('Current logo');
           }
           setShowUpdateModal(true);
@@ -198,7 +198,7 @@ function HPSliderImgs() {
                                             {hpSliderImgs && hpSliderImgs.map((img) => (
                                                 <div key={img.id} className="col-md-4 mb-4">
                                                     <div className="card h-100">
-                                                        <img src={`http://127.0.0.1:8000/storage/${img.slider_img_path}`} className="card-img-top" alt={img.heading} />
+                                                        <img src={`${imgURL}${img.slider_img_path}`} className="card-img-top" alt={img.heading} />
                                                         <div className="card-body">
                                                             <h5 className="card-title"><strong>Heading:</strong> {img.heading}</h5>
                                                             <p className="card-text"><strong>Subheadings:</strong> {img.subheadings.map(sub => sub.sub_heading).join(', ')}</p>

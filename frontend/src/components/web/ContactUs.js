@@ -4,6 +4,7 @@ import 'aos/dist/aos.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCmpAddress, getCmpDetails } from '../../redux/Company/company.action';
 import { getAllNavMenu } from '../../redux/NavMenu/navmenu.action';
+import { imgURL } from '../../variable';
 
 function ContactUs() {
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function ContactUs() {
     // Function to get the background image URL
     const getBackgroundImage = () => {
         if (foundMenu && foundMenu.n_menu_bg_img) {
-            return `http://127.0.0.1:8000/storage/${foundMenu.n_menu_bg_img}`;
+            return `${imgURL}${foundMenu.n_menu_bg_img}`;
         }
         return defaultImgUrl;
     };

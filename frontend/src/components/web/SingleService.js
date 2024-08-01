@@ -3,13 +3,14 @@ import { useLocation } from 'react-router-dom';
 import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllNavMenu } from '../../redux/NavMenu/navmenu.action';
+import { imgURL } from '../../variable';
 
 function SingleService() {
   const [showAddModal, setShowAddModal] = useState(false);
   const location = useLocation();
   const { service } = location.state || {}; // Retrieve the service object from the passed state
   const defaultImgUrl = '/path/to/default/image.jpg'; // Replace with your default image path
-  const serviceImgUrl = service?.images && service.images.length > 0 ? `http://127.0.0.1:8000/storage/${service.images[0].service_img_path}` : defaultImgUrl;
+  const serviceImgUrl = service?.images && service.images.length > 0 ? `${imgURL}${service.images[0].service_img_path}` : defaultImgUrl;
 
   const navmenu = useSelector(state => state.navbarMenu.allNavMenu);
   const foundMenu = navmenu.find(menu => menu.n_menu_name === 'Services');
@@ -25,7 +26,7 @@ function SingleService() {
 
   const getBackgroundImage = () => {
     if (foundMenu && foundMenu.n_menu_bg_img) {
-        return `http://127.0.0.1:8000/storage/${foundMenu.n_menu_bg_img}`;
+        return `${imgURL}${foundMenu.n_menu_bg_img}`;
     }
     return bgImgUrl;
 };

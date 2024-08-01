@@ -191,7 +191,7 @@ function AddService() {
                                                                 id="selectSubMenu2"
                                                                 value={selectedSubMenu2Id}
                                                                 onChange={handleSubMenu2Change}
-                                                                required
+                                                                
                                                             >
                                                                 <option value="">-- Select Sub Menu 2 --</option>
                                                                 {submenu2.map(item => (
@@ -205,7 +205,7 @@ function AddService() {
                                                 </div>
                                             )}
                                              <div className="form-group">
-                                            <label htmlFor="navMenuDesc">Menu Description</label>
+                                            <label htmlFor="navMenuDesc">Service Description</label>
                                             <div style={{ height: '120px', overflowY: 'auto' }}>
                                                 <ReactQuill
                                                     value={serviceDesc}

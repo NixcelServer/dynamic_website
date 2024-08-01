@@ -4,7 +4,7 @@ import { getNavmenu, getSubMenu1, getSubMenu2 } from '../../redux/NavMenu/navmen
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
-import { baseURL } from '../../variable';
+import { baseURL, imgURL } from '../../variable';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function AdminEditService() {
@@ -54,7 +54,7 @@ function AdminEditService() {
             setDisplay(item.show_status);
             setFileName(item.images[0]?.service_img_path ? item.images[0].service_img_path.replace('Services/', '') : '');
             if (item.images[0]?.service_img_path) {
-                setLogoPreview(`http://127.0.0.1:8000/storage/${item.images[0].service_img_path}`);
+                setLogoPreview(`${imgURL}${item.images[0].service_img_path}`);
             }
         }
         if (item?.encNavMenuId) {
@@ -215,7 +215,7 @@ function AdminEditService() {
                                                                 id="selectSubMenu2"
                                                                 value={selectedSubMenu2Id}
                                                                 onChange={handleSubMenu2Change}
-                                                                required
+                                                                
                                                             >
                                                                 <option value="">-- Select Sub Menu 2 --</option>
                                                                 {submenu2.map(item => (
@@ -229,7 +229,7 @@ function AdminEditService() {
                                                 </div>
                                             )}
                                              <div className="form-group">
-                                            <label htmlFor="navMenuDesc">Menu Description</label>
+                                            <label htmlFor="navMenuDesc">Service Description</label>
                                             <div style={{ height: '120px', overflowY: 'auto' }}>
                                                 <ReactQuill
                                                     value={serviceDesc}
