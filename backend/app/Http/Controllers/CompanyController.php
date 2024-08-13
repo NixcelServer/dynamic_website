@@ -33,12 +33,16 @@ class CompanyController extends Controller
 
     public function storeCompanyDetails(Request $request)
     {
+        
         $cmp = Company::first();
         if (!$cmp) {
             // Create a new company if no entry exists
             $cmp = new Company();
             $cmp->save();
         }
+
+        return $cmp;
+
         $cmp->c_name = $request -> companyName;
         $cmp->c_email_id = $request->email;
         $cmp->c_mobile_no = $request->mobile;

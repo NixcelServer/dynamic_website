@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('tbl_cmp_address', function (Blueprint $table) {
             $table->id('tbl_cmp_address_id'); // Primary key
-            $table->unsignedBigInteger('tbl_cmp_dtls_id'); // Foreign key to the company details table
             $table->string('address_type', 45);
             $table->string('address_name', 100);
             $table->string('country', 100);
@@ -23,6 +22,7 @@ return new class extends Migration
             $table->string('area', 100);
             $table->string('locality', 100);
             $table->string('pincode', 6);
+            $table->string('show_status', 6);
             $table->date('add_date');
             $table->time('add_time');
             $table->date('updated_date')->nullable(); // Nullable if updates are not mandatory

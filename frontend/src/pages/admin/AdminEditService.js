@@ -197,7 +197,7 @@ function AdminEditService() {
                                                             id="selectSubMenu1"
                                                             value={selectedSubMenu1Id}
                                                             onChange={handleSubMenu1Change}
-                                                            required
+                                                            
                                                         >
                                                             <option value="">-- Select Sub Menu 1 --</option>
                                                             {submenu1.map(item => (

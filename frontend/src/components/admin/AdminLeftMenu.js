@@ -39,7 +39,7 @@ function AdminLeftMenu() {
          with font-awesome or any other icon font library */}
          <li className="nav-item">
           {/* <Link to="/admin/home" className="nav-link"> */}
-          <Link to="#" className="nav-link">
+          <Link to="/admin/home" className="nav-link">
           <i className="nav-icon fas fa-tachometer-alt" />            <p>
               Dashboard
               {/* <span className="right badge badge-danger">New</span> */}
@@ -68,14 +68,14 @@ function AdminLeftMenu() {
           </Link>
         </li>
         <li className="nav-item">
-          <a href="#" className="nav-link">
+          <Link to="/admin/products" className="nav-link">
             <i className="nav-icon fas fa-copy" />
             <p>
             Products 
               {/* <i className="fas fa-angle-left right" /> */}
               {/* <span className="badge badge-info right">6</span> */}
             </p>
-          </a>
+          </Link>
           {/* <ul className="nav nav-treeview">
             <li className="nav-item">
               <a href="pages/layout/top-nav.html" className="nav-link">

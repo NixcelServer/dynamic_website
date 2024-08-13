@@ -135,6 +135,7 @@ class ServiceController extends Controller
 
     public function updateService(Request $request)
     {
+        
         DB::beginTransaction();
         
         try {

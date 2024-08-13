@@ -9,6 +9,9 @@ import 'aos/dist/aos.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAboutUs } from '../../redux/Company/company.action';
 import { getServices } from '../../redux/Service/service.action';
+import "../../Industries/css/customproduct.css";
+import { getProductDetails, getProducts } from '../../redux/Product/product.action';
+
 
 function Home() {
   
@@ -18,6 +21,7 @@ function Home() {
   const aboutUsImgUrl = aboutUs && aboutUs.cmp_desc_img_path ? `${imgURL}${aboutUs.cmp_desc_img_path}` : "/Industries/images/img_2.jpg";
   const defaultImgUrl = "/Industries/images/hero_2.jpg";
   const services = useSelector(state => state.services.servicesWeb);
+  const products = useSelector(state => state.products.webProducts);
   const navigate = useNavigate();
 
 
@@ -29,6 +33,7 @@ function Home() {
         dispatch(getHPSliderImgs());
         dispatch(getAboutUs());
         dispatch(getServices());
+        dispatch(getProducts());
     }, [dispatch]);
 
     // const filteredImages = hpSliderImgs.filter(img => img.show_status === 'yes');
@@ -57,6 +62,12 @@ function Home() {
 
   // Determine the number of slides to render
   const slides = slidesToRender.length > 0 ? slidesToRender : defaultImages.slice(0, 2);
+
+  const handleExploreClick = (product) => {
+    navigate(`/web/single-product`, {
+      state: { product }
+    });
+  };
 
 
   return (
@@ -352,9 +363,44 @@ function Home() {
     </div>
   </section> */}
 
+<div className="container-xxl products my-6 py-6 pb-0">
+  <div className="container">
+    <div className="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{maxWidth: 500}}>
+      {/* <p className="fs-5 fw-bold text-primary">Our Products</p> */}
+      <h1 className="display-5 mb-5">Explore Our Products</h1>
+    </div>
+    
+    <div className="row g-4 justify-content-center">
+    {products.map((product) => (
+              <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" key={product.id}>
+                <div className="products-item d-flex flex-column bg-white overflow-hidden h-100">
+                  <div className="position-relative mt-auto">
+                    <img className="img-fluid" 
+                    src={product.images && product.images.length > 0 ? `${imgURL}${product.images[0].prod_img_path}` : defaultImgUrl}
+                    alt={product.prod_name} />
+                    <div className="products-overlay">
+                    <button
+                      className="btn btn-outline-primary border-2"
+                      onClick={() => handleExploreClick(product)}
+                    >
+                      Explore
+                    </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+    
+    </div>
+
+  
+
+  </div>
+</div>
 
 
-   {/* <section className="section border-t pb-0">
+
+   <section className="section border-t pb-0">
     <div className="container">
       <div className="row justify-content-center mb-5 ">
         <div className="col-md-8 text-center" data-aos="fade-up">
@@ -366,51 +412,51 @@ function Home() {
     <div className="container-fluid">
       <div className="row no-gutters">
         <div className="col-md-4 " data-aos="fade-up">
-          <a href="project-single.html" className="link-thumbnail">
+          <Link to="/web/project-example" className="link-thumbnail">
             <h3>Ducting Design in Colorado</h3>
             <span className="ion-plus icon" />
             <img src="/Industries/images/img_1.jpg" alt="Image" className="img-fluid" />
-          </a>
+          </Link>
         </div>
         <div className="col-md-4" data-aos="fade-up">
-          <a href="project-single.html" className="link-thumbnail">
-            <h3>Tanks Project In California</h3>
+        <Link to="/web/project-example" className="link-thumbnail">
+        <h3>Tanks Project In California</h3>
             <span className="ion-plus icon" />
             <img src="/Industries/images/img_2.jpg" alt="Image" className="img-fluid" />
-          </a>
+          </Link>
         </div>
         <div className="col-md-4 " data-aos="fade-up">
-          <a href="project-single.html" className="link-thumbnail">
-            <h3>Structural Design in New York</h3>
+        <Link to="/web/project-example" className="link-thumbnail">
+        <h3>Structural Design in New York</h3>
             <span className="ion-plus icon" />
             <img src="/Industries/images/img_3.jpg" alt="Image" className="img-fluid" />
-          </a>
+          </Link>
         </div>
         <div className="col-md-4 element-animated" data-aos="fade-up">
-          <a href="project-single.html" className="link-thumbnail">
-            <h3>Stacks Design</h3>
+        <Link to="/web/project-example" className="link-thumbnail">
+        <h3>Stacks Design</h3>
             <span className="ion-plus icon" />
             <img src="/Industries/images/img_4.jpg" alt="Image" className="img-fluid" />
-          </a>
+          </Link>
         </div>
         <div className="col-md-4 element-animated" data-aos="fade-up">
-          <a href="project-single.html" className="link-thumbnail">
-            <h3>Intercate Custom</h3>
+        <Link to="/web/project-example" className="link-thumbnail">
+        <h3>Intercate Custom</h3>
             <span className="ion-plus icon" />
             <img src="/Industries/images/img_1.jpg" alt="Image" className="img-fluid" />
-          </a>
+          </Link>
         </div>
         <div className="col-md-4 element-animated" data-aos="fade-up">
-          <a href="project-single.html" className="link-thumbnail">
-            <h3>Banker Design</h3>
+        <Link to="/web/project-example" className="link-thumbnail">
+        <h3>Banker Design</h3>
             <span className="ion-plus icon" />
             <img src="/Industries/images/img_2.jpg" alt="Image" className="img-fluid" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>
-  </section>  */}
-  {/* END section */}
+  </section>  
+  {/* {/* END section */}
 
 
 
@@ -543,6 +589,9 @@ function Home() {
       </div>
     </div>
   </section> */}
+
+
+{/*   
   <section className="section "  style={{ 
                                                 backgroundColor: '#fd5f00', 
                                                 borderColor: '#fd5f00', 
@@ -560,7 +609,7 @@ function Home() {
         </div>
       </div>
     </div>
-  </section>
+  </section> */}
    {/* END section */}
 
   {/* END footer */}

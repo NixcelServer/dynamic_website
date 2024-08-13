@@ -23,11 +23,11 @@ use App\Http\Controllers\ServiceController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-
+Route::get('/test',[AuthController::class,'test']);
 Route::post('/login',[AuthController::class,'login']);
 
 Route::get('/logout',[AuthController::class,'logout']);
@@ -94,6 +94,16 @@ Route::get('/get-about-us',[HomePageController::class,'getAboutUs']);
 Route::post('/edit-about-us',[HomePageController::class,'editAboutUs']);
 
 //product api's
+Route::get('/get-products',[ProductController::class,'getProducts']);
+
+
+Route::get('/get-product-details',[ProductController::class,'getProductDetails']);
+
+Route::get('/get-sm1-prods/{id}',[ProductController::class,'getSM1Content']);
+
+Route::get('/get-sm2-prod/{id}',[ProductController::class,'getSM2Content']);
+
+
 Route::post('/new-product',[ProductController::class,'newProduct']);
 
 //update product api

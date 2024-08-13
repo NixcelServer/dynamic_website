@@ -25,12 +25,12 @@ class NavMenuController extends Controller
     public function createNavMenu(Request $request)
     {
          // Validate the request
-    $request->validate([
-        'navbarName' => 'required|string|max:255',
-        'navMenuDesc' => 'required|string', // Assuming CKEditor is used to input HTML content
-        'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'bgImg' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    // $request->validate([
+    //     'navbarName' => 'required|string|max:255',
+    //     'navMenuDesc' => 'required|string', // Assuming CKEditor is used to input HTML content
+    //     'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     'bgImg' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    // ]);
 
         // Create a new NavbarMenu instance
         $navMenu = new NavbarMenu;

@@ -12,7 +12,92 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    //
+
+    //web login products
+    public function getProducts(){
+        $products = Product::with(['images'=>function($query){
+            $query->where('flag','show');
+        }])->where('show_status','yes')->where('flag','show')->get();
+
+        foreach ($products as $product){
+            $product->encServiceId = EncDecHelper::encDecId($product->tbl_service_id,'encrypt');
+            $product->encNavMenuId = EncDecHelper::encDecId($product->tbl_nav_menu_id,'encrypt');
+            $product->encSubMenu1Id = EncDecHelper::encDecId($product->tbl_n_sub_menu_1_id,'encrypt');
+            $product->encSubMenu2Id = EncDecHelper::encDecId($product->tbl_n_sub_menu_2_id,'encrypt');
+
+            unset($product->tbl_service_id,$product->tbl_nav_menu_id,$product->tbl_n_sub_menu_1_id,$product->tbl_n_sub_menu_2_id);
+        }
+
+        return response()->json($products, 200);
+    }
+
+    //admin login products
+    public function getProductDetails()
+{
+    $products = Product::with(['images' => function($query) {
+        $query->where('flag', 'show');
+    }])->where('flag', 'show')->get();
+
+    foreach ($products as $product) {
+        $product->encProdId = EncDecHelper::encDecId($product->tbl_prod_id, 'encrypt');
+        $product->encNavMenuId = EncDecHelper::encDecId($product->tbl_nav_menu_id, 'encrypt');
+        $product->encSubMenu1Id = EncDecHelper::encDecId($product->tbl_n_sub_menu_1_id, 'encrypt');
+        $product->encSubMenu2Id = EncDecHelper::encDecId($product->tbl_n_sub_menu_2_id, 'encrypt');
+
+        // Encrypt image IDs
+        $product->images->transform(function($image) {
+            $image->encImgId = EncDecHelper::encDecId($image->tbl_prod_img_id, 'encrypt');
+            return $image;
+        });
+
+        unset($product->tbl_prod_id, $product->tbl_nav_menu_id, $product->tbl_n_sub_menu_1_id, $product->tbl_n_sub_menu_2_id);
+    }
+
+    return response()->json($products, 200);
+}
+
+    public function getSM1Content($id){
+        $subMenu1Id = EncDecHelper::encDecId($id,'decrypt');
+
+        $prods = Product::where('tbl_n_sub_menu_1_id', $subMenu1Id)
+        ->where('show_status', 'yes')
+        ->where('flag', 'show')
+        ->with('images') // Eager load the images relationship
+        ->get();
+        
+        $withSubMenu2 = [];
+        $withoutSubMenu2 = [];
+
+        foreach ($prods as $prod) {
+            if (!empty($prod->tbl_n_sub_menu_2_id)) {
+                $withSubMenu2[] = $prod;
+            } else {
+                $withoutSubMenu2[] = $prod;
+            }
+        }
+
+        return response()->json([
+            'withSubMenu2' => $withSubMenu2,
+            'withoutSubMenu2' => $withoutSubMenu2,
+        ]);
+    }
+
+    public function getSM2Content($id){
+        $subMenu2Id = EncDecHelper::encDecId($id,'decrypt');
+
+        $prods = Product::where('tbl_n_sub_menu_2_id', $subMenu2Id)
+        ->where('show_status', 'yes')
+        ->where('flag', 'show')
+        ->with('images') // Eager load the images relationship
+        ->get();
+    
+
+    
+
+    return response()->json( $prods,200);
+    }
+
+
     public function newProduct(Request $request)
     {
         DB::beginTransaction();
@@ -29,6 +114,8 @@ class ProductController extends Controller
             $prod->add_time = Date::now()->toTimeString();
             $prod->flag = 'show';
             $prod->save();
+
+            
 
             if ($request->hasFile('prodImgs')) {
                 foreach ($request->file('prodImgs') as $image) {
@@ -70,8 +157,21 @@ class ProductController extends Controller
             $prod->updated_time = Date::now()->toTimeString();
             $prod->save();
 
+            // Retrieve existing image IDs to keep
+        $existingImgIds = $request->has('existingProdImgIds') ? json_decode($request->existingProdImgIds) : [];
+
+        // Decrypt existing image IDs
+        $decryptedImgIds = array_map(function($id) {
+            return EncDecHelper::encDecId($id, 'decrypt');
+        }, $existingImgIds);
+
+        // Delete images that are not in the existing images list
+        ProductImages::where('tbl_prod_id', $prodId)
+            ->whereNotIn('tbl_prod_img_id', $decryptedImgIds)
+            ->delete();
+
             if ($request->hasFile('prodImgs')) {
-                ProductImages::where('tbl_prod_id',$prodId)->delete();
+                // ProductImages::where('tbl_prod_id',$prodId)->delete();
                 foreach ($request->file('prodImgs') as $image) {
                     $prodImg = new ProductImages();
                     $prodImg->tbl_prod_id = $prodId;

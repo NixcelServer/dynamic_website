@@ -612,3 +612,186 @@
 .profile-card-10:hover img {
     transform: scale(1.1);
 }
+
+.product-tophead {
+    width: 800px;
+    text-align: center;
+    margin: 10px auto;
+    margin-bottom: 30px;
+  }
+  
+  .box-color-1 {
+    background: #eff2f7;
+    padding: 80px 60px;
+    text-align: center;
+  }
+  
+  .box-color-1 p {
+    font-size: 16px;
+  }
+  
+  .box-color-2 {
+    background: #526ca9;
+    padding: 40px 30px;
+    color: #fff;
+  }
+  
+  .related-product-points li,
+  .related-product-points-2 li,
+  .related-product-points-3 li {
+    list-style: square;
+  }
+  
+  .related-product-points-3 li {
+    color: #919191;
+  }
+  
+  .related-product-points li::marker {
+    color: #fff;
+  }
+  
+  .related-product-points-2 li::marker {
+    color: #f06582;
+  }
+  
+  .related-product-points-3 li::marker {
+    color: #797979;
+  }
+  
+  .drop-angle .fa-angle-down {
+    display: none;
+  }
+  
+  .collapsed .drop-angle .fa-angle-up {
+    display: none;
+  }
+  
+  .collapsed .drop-angle .fa-angle-down {
+    display: block;
+  }
+  
+  .product-content-card .card {
+    border: 0;
+    margin-bottom: 10px;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+    transition: 1s ease;
+    -moz-transition: 1s ease;
+    -webkit-transition: 1s ease;
+  }
+  
+  .product-content-card .card .card-header a {
+    color: #526ca9;
+    font-size: 18px;
+  }
+  
+  .product-content-card .card .card-header .drop-angle i {
+    font-size: 28px;
+  }
+  
+  .product-fill-section {
+    background: #eff2f7;
+  }
+  
+  .product-content-bg:after {
+    content: "";
+    background: #526ca9;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 130%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  .product-content-bg {
+    padding: 50px 80px;
+    margin-top: 100px;
+    color: #fff;
+  }
+  
+  .product-content-bg h4 {
+    margin-bottom: 20px;
+  }
+  
+  .product-content-bg p {
+    font-size: 16px;
+  }
+  
+  .product-img img {
+    box-shadow: 6px 6px 8px 6px #00000012;
+  }
+  
+  /* New Rule to Ensure White Bold Text */
+  .product-content-bg, 
+  .product-content-bg b, 
+  .product-content-bg strong {
+      color: #fff !important; /* Force white color on bold text */
+  }
+  
+  @media (max-width: 991px) {
+    .product-content-bg:after {
+      content: "";
+      background: #526ca9;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  
+    .product-content-bg {
+      padding: 30px 40px;
+      margin-top: 0;
+      color: #fff;
+    }
+  
+    .product-tophead {
+      width: 90%;
+      margin: 0 auto;
+    }
+  
+    .product-tophead h4 {
+      font-size: 20px;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .product-tophead h4 {
+      font-size: 18px;
+    }
+  
+    .product-tophead {
+      width: 98%;
+      margin: 0 auto;
+    }
+  }
+  
+  .lub-Oil-process {
+    background: #fafafa;
+    padding: 40px 0;
+  }
+  
+  .lube-data {
+    padding: 10px;
+    border: solid 1px #f0f0f0;
+    background: #eee;
+  }
+  
+  .lube-content {
+    background: #f4f7ff;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .lube-content h4 {
+    color: #516ca9;
+    font-weight: 400;
+    font-size: 20px;
+  }
+  
+  .lube-content h6 {
+    color: #f16583;
+    text-transform: uppercase;
+  }
+  

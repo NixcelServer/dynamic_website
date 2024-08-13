@@ -33,6 +33,16 @@ import ServiceSubMenu1Page from './pages/web/ServiceSubMenu1Page';
 import ServiceSubMenu2Page from './pages/web/ServiceSubMenu2Page';
 import SingleService from './components/web/SingleService';
 import ScrollToTop from './components/ScrollToTop';
+import Products from './components/web/Products';
+import ProjectExample from './components/web/ProjectExample';
+import Projects from './components/web/Projects';
+import ProductExample from './components/web/ProductExample';
+import AdminProducts from './pages/admin/AdminProducts';
+import AddProduct from './pages/admin/AddProduct';
+import EditProduct from './pages/admin/EditProduct';
+import SingleProduct from './components/web/SingleProduct';
+import ProductSubMenu1Page from './pages/web/ProductSubMenu1Page';
+import ProductSubMenu2Page from './pages/web/ProductSubMenu2Page';
 
 function App() {
   const isAuthenticated = useSelector(state => state.authReducer.isLogin);
@@ -79,6 +89,8 @@ function App() {
              {/* Render your admin page component */}
           </>} />
 
+          
+
           <Route path="/web/service/info" element={<>
             <Navbar />
             <ServiceInfo />
@@ -103,6 +115,55 @@ function App() {
           <Route path="/web/Services/submenu1/submenu2" element={<>
             <Navbar />
             <ServiceSubMenu2Page />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/projects" element={<>
+            <Navbar />
+            <Projects />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/project-example" element={<>
+            <Navbar />
+            <ProjectExample />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/products" element={<>
+            <Navbar />
+            <Products />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/product-example" element={<>
+            <Navbar />
+            <ProductExample />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/single-product" element={<>
+            <Navbar />
+            <SingleProduct />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/Products/submenu1" element={<>
+            <Navbar />
+            <ProductSubMenu1Page />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/Products/submenu1/submenu2" element={<>
+            <Navbar />
+            <ProductSubMenu2Page />
             <Footer/>
              {/* Render your admin page component */}
           </>} />
@@ -170,6 +231,10 @@ const AdminRoutes = () => {
         <Route path="services" element={<AdminService />} />
         <Route path="add-service" element={<AddService />} />
         <Route path="edit-service" element={<AdminEditService />} />
+        <Route path="products" element={<AdminProducts />} />
+        <Route path="add-product" element={<AddProduct />} />
+        <Route path="edit-product" element={<EditProduct />} />
+
         
 
         {/* Add more admin routes here as needed */}

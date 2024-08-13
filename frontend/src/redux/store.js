@@ -10,6 +10,8 @@ import authReducer from "./Auth/auth.reducer";
 import { companyReducer } from "./Company/company.reducer";
 import { hpSliderReducer } from "./HomePage/homepage.reducer";
 import { serviceReducer } from "./Service/service.reducer";
+import { productReducer } from "./Product/product.reducer";
+
 // import { companyReducer } from "./Company/company.reducer";
 // import { companyReducer } from "./Company/company.reducer";
 
@@ -20,6 +22,7 @@ import { serviceReducer } from "./Service/service.reducer";
     companyDetails:companyReducer,
     hpSliderImgs:hpSliderReducer,
     services:serviceReducer,
+    products:productReducer,
   });
   
   const composer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

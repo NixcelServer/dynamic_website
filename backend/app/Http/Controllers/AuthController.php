@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Session;
 class AuthController extends Controller
 {
     //
+    public function test()
+    {
+        $user = User::first();
+        return response()->json($user);
+    }
     public function login(Request $request)
     {
         // // Validate the request
