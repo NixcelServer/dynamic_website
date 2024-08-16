@@ -43,6 +43,9 @@ import EditProduct from './pages/admin/EditProduct';
 import SingleProduct from './components/web/SingleProduct';
 import ProductSubMenu1Page from './pages/web/ProductSubMenu1Page';
 import ProductSubMenu2Page from './pages/web/ProductSubMenu2Page';
+import AdminProject from './pages/admin/AdminProject';
+import AddProject from './pages/admin/AddProject';
+import ProjectSingle from './components/web/ProjectSingle';
 
 function App() {
   const isAuthenticated = useSelector(state => state.authReducer.isLogin);
@@ -122,6 +125,13 @@ function App() {
           <Route path="/web/projects" element={<>
             <Navbar />
             <Projects />
+            <Footer/>
+             {/* Render your admin page component */}
+          </>} />
+
+          <Route path="/web/single-project" element={<>
+            <Navbar />
+            <ProjectSingle />
             <Footer/>
              {/* Render your admin page component */}
           </>} />
@@ -234,7 +244,8 @@ const AdminRoutes = () => {
         <Route path="products" element={<AdminProducts />} />
         <Route path="add-product" element={<AddProduct />} />
         <Route path="edit-product" element={<EditProduct />} />
-
+        <Route path="projects" element={<AdminProject />} />
+        <Route path="add-project" element={<AddProject />} />
         
 
         {/* Add more admin routes here as needed */}

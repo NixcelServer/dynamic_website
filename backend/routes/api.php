@@ -10,6 +10,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ProjectController;
 
 
 /*
@@ -130,3 +131,13 @@ Route::post('/update-service',[ServiceController::class,'updateService']);
 
 //delete service
 Route::delete('/delete-service/{id}',[ServiceController::class,'deleteService']);
+
+
+//Project API's
+
+Route::get('/projects',[ProjectController::class,'getProjects']);
+
+
+Route::get('/project-details',[ProjectController::class,'getProjectDetails']);
+
+Route::post('/new-project',[ProjectController::class,'newProject']);

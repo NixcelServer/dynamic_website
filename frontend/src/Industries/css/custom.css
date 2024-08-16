@@ -4,13 +4,25 @@
   position: absolute;
   z-index: 1000; /* Ensure dropdowns appear above other elements */
   min-width: 200px; /* Set a minimum width for dropdowns */
+  background-color: #fff; /* Set background color */
+  border: 1px solid rgba(0, 0, 0, 0.15); /* Set border */
+  border-radius: 0.25rem; /* Set border radius */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175); /* Add box shadow */
+  margin: 0.125rem 0 0; /* Set margin */
+  padding: 0.5rem 0; /* Set padding */
+  font-size: 1rem; /* Set font size */
+  color: #212529; /* Set text color */
+  text-align: left; /* Align text to the left */
+  list-style: none; /* Remove list styling */
 }
 
+/* Show dropdown on hover */
 .navbar .dropdown:hover > .dropdown-menu,
 .navbar .dropdown-menu:hover {
   display: block; /* Show dropdown on hover */
 }
 
+/* Styling for submenus */
 .dropdown-submenu {
   position: relative;
 }
@@ -27,6 +39,89 @@
 
 .dropdown-submenu:hover > .dropdown-menu {
   display: block; /* Show sub-menu on hover */
+}
+
+/* Add arrow for submenu */
+.navbar .dropdown-submenu > .dropdown-menu::before {
+  display: block; /* Show arrow for submenu */
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-bottom: 0.5em solid #fff; /* Adjust the color as needed */
+  top: -0.5em;
+  left: 1em; /* Adjust the position as needed */
+}
+
+/* Remove arrow for subsubmenu */
+.navbar .dropdown-submenu .dropdown-submenu > .dropdown-menu::before {
+  display: none; /* Remove arrow for subsubmenu */
+}
+
+/* Style dropdown items */
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+/* Hover and focus state for dropdown items */
+.dropdown-item:hover, .dropdown-item:focus {
+  color: #16181b;
+  text-decoration: none;
+  background-color: #f8f9fa;
+}
+
+/* Active and disabled state for dropdown items */
+.dropdown-item.active, .dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #fd5f00;
+}
+
+.dropdown-item.disabled, .dropdown-item:disabled {
+  color: #6c757d;
+  background-color: transparent;
+}
+
+/* Show dropdown menu */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Style dropdown headers */
+.dropdown-header {
+  display: block;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+  white-space: nowrap;
+}
+
+/* Style dropdown item text */
+.dropdown-item-text {
+  display: block;
+  padding: 0.25rem 1.5rem;
+  color: #212529;
+}
+
+/* Highlight submenu parent when hovering over subsubmenu */
+.navbar .dropdown-submenu:hover > .dropdown-item,
+.navbar .dropdown-submenu:hover > .dropdown-item:hover,
+.navbar .dropdown-submenu:hover > .dropdown-item:focus,
+.navbar .dropdown-submenu .dropdown-menu:hover > .dropdown-item {
+  background-color: #fd5f00; /* Set background color to highlight */
+  color: white; /* Set text color */
 }
 
 
@@ -128,6 +223,23 @@
   margin-bottom: 30px;
 }
 
+@media (max-width: 768px) {
+  .carousel-slide .carousel-content h1 {
+    font-size: 28px; /* Decrease font size for mobile */
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .carousel-slide .carousel-content p {
+    font-size: 16px; /* Decrease font size for mobile */
+    line-height: 1.4;
+  }
+
+  .carousel-slide .carousel-content {
+    padding: 0 10px; /* Adjust padding for mobile */
+  }
+}
+
 .carousel-slide .carousel-content p {
   font-size: 20px;
   line-height: 1.5;
@@ -145,3 +257,10 @@
   color: #fff;
   text-decoration: underline;
 }
+
+
+
+
+
+
+

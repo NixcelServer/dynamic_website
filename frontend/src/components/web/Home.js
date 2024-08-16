@@ -365,14 +365,14 @@ function Home() {
 
 <div className="container-xxl products my-6 py-6 pb-0">
   <div className="container">
-    <div className="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{maxWidth: 500}}>
+    <div className="text-center mx-auto mb-5 wow fadeInUp" data-aos="fade-up" style={{maxWidth: 500}}>
       {/* <p className="fs-5 fw-bold text-primary">Our Products</p> */}
       <h1 className="display-5 mb-5">Explore Our Products</h1>
     </div>
     
     <div className="row g-4 justify-content-center">
     {products.map((product) => (
-              <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" key={product.id}>
+              <div className="col-lg-4 col-md-6 wow fadeInUp" data-aos="fade-up" key={product.id}>
                 <div className="products-item d-flex flex-column bg-white overflow-hidden h-100">
                   <div className="position-relative mt-auto">
                     <img className="img-fluid" 

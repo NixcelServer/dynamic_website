@@ -163,13 +163,13 @@ function AdminLeftMenu() {
           </ul> */}
         </li>
         <li className="nav-item">
-          <a href="#" className="nav-link">
+          <Link to="/admin/projects" className="nav-link">
             <i className="nav-icon fas fa-tree" />
             <p>
               Projects
               {/* <i className="fas fa-angle-left right" /> */}
             </p>
-          </a>
+          </Link>
           {/* <ul className="nav nav-treeview">
             <li className="nav-item">
               <a href="pages/UI/general.html" className="nav-link">

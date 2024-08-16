@@ -2,17 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllNavMenu } from '../../redux/NavMenu/navmenu.action';
 import { imgURL } from '../../variable';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getProjects } from '../../redux/Project/project.action';
 function Projects() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const navmenu = useSelector(state => state.navbarMenu.allNavMenu);
     const foundMenu = navmenu.find(menu => menu.n_menu_name === 'Projects');
     const defaultImgUrl = "/Industries/images/hero_2.jpg";
     const [imageLoaded, setImageLoaded] = useState(false);
+    const projects = useSelector(state => state.projects.webProjects);
+
 
     useEffect(() => {
         dispatch(getAllNavMenu());
+        dispatch(getProjects());
     }, [dispatch]);
 
     const getBackgroundImage = () => {
@@ -21,6 +26,13 @@ function Projects() {
         }
         return defaultImgUrl;
     };
+
+    const handleExploreClick = (project) => {
+      navigate(`/web/single-project`, {
+        state: { project } // Passing product as state
+      });
+    };
+
 
 
   return (
@@ -76,7 +88,7 @@ function Projects() {
                     <div className="container">
                         <div className="row justify-content-center mb-5 element-animated" data-aos="fade-up">
                             <div className="col-md-12">
-                                <h2 className="heading mb-4"><strong>Industries Products</strong></h2>
+                                <h2 className="heading mb-4"><strong>Industries Projects</strong></h2>
                                 
                                 {foundMenu ? (
                                     <div 
@@ -101,51 +113,25 @@ function Projects() {
       </div>
     </div>
     <div className="container-fluid">
-      <div className="row no-gutters">
-        <div className="col-md-4 " data-aos="fade-up">
-          <Link to="/web/project-example" className="link-thumbnail">
-            <h3>Ducting Design in Colorado</h3>
-            <span className="ion-plus icon" />
-            <img src="/Industries/images/img_1.jpg" alt="Image" className="img-fluid" />
-          </Link>
-        </div>
-        <div className="col-md-4" data-aos="fade-up">
-        <Link to="/web/project-example" className="link-thumbnail">
-        <h3>Tanks Project In California</h3>
-            <span className="ion-plus icon" />
-            <img src="/Industries/images/img_2.jpg" alt="Image" className="img-fluid" />
-          </Link>
-        </div>
-        <div className="col-md-4 " data-aos="fade-up">
-        <Link to="/web/project-example" className="link-thumbnail">
-        <h3>Structural Design in New York</h3>
-            <span className="ion-plus icon" />
-            <img src="/Industries/images/img_3.jpg" alt="Image" className="img-fluid" />
-          </Link>
-        </div>
-        <div className="col-md-4 element-animated" data-aos="fade-up">
-        <Link to="/web/project-example" className="link-thumbnail">
-        <h3>Stacks Design</h3>
-            <span className="ion-plus icon" />
-            <img src="/Industries/images/img_4.jpg" alt="Image" className="img-fluid" />
-          </Link>
-        </div>
-        <div className="col-md-4 element-animated" data-aos="fade-up">
-        <Link to="/web/project-example" className="link-thumbnail">
-        <h3>Intercate Custom</h3>
-            <span className="ion-plus icon" />
-            <img src="/Industries/images/img_1.jpg" alt="Image" className="img-fluid" />
-          </Link>
-        </div>
-        <div className="col-md-4 element-animated" data-aos="fade-up">
-        <Link to="/web/project-example" className="link-thumbnail">
-        <h3>Banker Design</h3>
-            <span className="ion-plus icon" />
-            <img src="/Industries/images/img_2.jpg" alt="Image" className="img-fluid" />
-          </Link>
-        </div>
-      </div>
-    </div>
+                    <div className="row no-gutters">
+                        {projects && projects.length > 0 ? (
+                            projects.map((project, index) => (
+                                <div className="col-md-4 element-animated" data-aos="fade-up" key={index}>
+                         <div onClick={() => handleExploreClick(project)} className="link-thumbnail">                              <h3>{project.project_name}</h3>
+                                        <span className="ion-plus icon" />
+                                        <img 
+                                            src={project.images ? `${imgURL}${project.images[0].project_img_path}` : defaultImgUrl} 
+                                            alt={project.title} 
+                                            className="img-fluid" 
+                                        />
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p>Loading Projects...</p>
+                        )}
+                    </div>
+                </div>
   </section>  
     </div>
   )
